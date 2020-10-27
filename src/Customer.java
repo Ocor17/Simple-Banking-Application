@@ -362,42 +362,42 @@ public class Customer extends Person {
                 }
 
                 if(mainCounter%columnNum == IDCount) {
-                    setIdentificationNumber(Integer.parseInt(current.replaceAll("[\\s\\-]", "")));
+                    customerAcc.setIdentificationNumber(Integer.parseInt(current.replaceAll("[\\s\\-]", "")));
 
                 }
                 else if(mainCounter%columnNum == savingNumCount) {
-                    setSavingsAccountNumber(Integer.parseInt(current));
+                    customerAcc.setSavingsAccountNumber(Integer.parseInt(current));
 
                 }
 
                 else if(mainCounter%columnNum == lastNamCount) {
-                    setLastName(current);
+                    customerAcc.setLastName(current);
 
                 }
                 else if(mainCounter%columnNum == DOBCount) {
-                    setDateOfBirth(current);
+                    customerAcc.setDateOfBirth(current);
 
                 }
                 else if(mainCounter%columnNum == checkingNumCount) {
-                    setCheckingAccountNumber(Integer.parseInt(current));
+                    customerAcc.setCheckingAccountNumber(Integer.parseInt(current));
 
                 }
                 else if(mainCounter%columnNum == creditNumCount) {
-                    setCreditAccountNumber(Integer.parseInt(current));
+                    customerAcc.setCreditAccountNumber(Integer.parseInt(current));
 
                 }
                 else if(mainCounter%columnNum == phoneNumCount) {
-                    setPhoneNumber(Long.parseLong(current.replaceAll("\\D", "")));
+                    customerAcc.setPhoneNumber(Long.parseLong(current.replaceAll("\\D", "")));
 
                 }
                 else if(mainCounter%columnNum == checkingBalCount) {
-                    setCheckingStartingBalance(Double.parseDouble(current));
-                    setCheckingCurrentBalance(Double.parseDouble(current));
+                    customerAcc.setCheckingStartingBalance(Double.parseDouble(current));
+                    customerAcc.setCheckingCurrentBalance(Double.parseDouble(current));
 
                 }
                 else if(mainCounter%columnNum == savingBalCount) {
-                    setSavingsStartingBalance(Double.parseDouble(current));
-                    setSavingsCurrentBalance(Double.parseDouble(current));
+                    customerAcc.setSavingsStartingBalance(Double.parseDouble(current));
+                    customerAcc.setSavingsCurrentBalance(Double.parseDouble(current));
 
                 }
                 else if(mainCounter%columnNum == creditMaxCount) {
