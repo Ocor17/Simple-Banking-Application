@@ -1,5 +1,6 @@
 /**
- * Person class is an abstract class that has a child class called Customer
+ * Person class is an abstract class that has a child class called Customer.
+ * Taken from Alfredo
  *
  * @author Alfredo Rodriguez, Juan Gutierrez
  * @version 1.0 10/26/2020
