@@ -10,6 +10,7 @@
 public class Credit extends Account {
 
     private int identificationNumber;
+    private double creditMax;
 
     /**
      * This is the default constructor
@@ -25,9 +26,10 @@ public class Credit extends Account {
      * @param accountNumberIn Receives account number @see Account
      * @param startingBalanceIn Receives starting balance @see Account
      */
-    public Credit(int identificationNumberIn, int accountNumberIn, double startingBalanceIn) {
+    public Credit(int identificationNumberIn, int accountNumberIn, double startingBalanceIn, double creditMaxIn) {
         super(accountNumberIn, startingBalanceIn);
         this.identificationNumber = identificationNumberIn;
+        this.creditMax = creditMaxIn;
     }
 
     /**
@@ -47,4 +49,23 @@ public class Credit extends Account {
     public void setIdentificationNumber(int identificationNumberIn) {
         this.identificationNumber = identificationNumberIn;
     }
+
+    /**
+     * This method sets the max credit balance
+     *
+     * @param creditMaxIn receives max credit balance
+     */
+    public void  setCreditMax(double  creditMaxIn){
+        this.creditMax = creditMaxIn;
+    }
+
+    /**
+     * This method gets the max credit balance available
+     *
+     * @return creditMax
+     */
+    public double getCreditMax(){
+        return creditMax;
+    }
+
 }

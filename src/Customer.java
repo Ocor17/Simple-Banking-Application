@@ -240,7 +240,7 @@ public class Customer extends Person {
     }
 
     /**
-     * converts the csv file "BankUsers2.csv" to an ArrayList of customers with the files information
+     * converts the csv file "BankUsers.csv" to an ArrayList of customers with the files information
      *
      * Taken from Juan
      *
@@ -267,7 +267,7 @@ public class Customer extends Person {
 
         ArrayList<Customer> accounts = new ArrayList<>();
 
-        Scanner sc = null;
+        Scanner sc = new Scanner(System.in);
         try {
             sc = new Scanner(new File("CS 3331 - Bank Users 3.csv"));
         } catch (FileNotFoundException e) {
@@ -286,6 +286,8 @@ public class Customer extends Person {
             else {
                 current = sc.next();
             }
+
+            //sets values of parameters to be used to find which column their in
 
             mainCounter++;//iterates after each check
             switch (current) {

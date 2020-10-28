@@ -9,7 +9,7 @@
  * @since October 27, 2020
  *
  */
-public abstract class Account {
+    public abstract class Account {
 
     // initializing attributes
     private int accountNumber;
