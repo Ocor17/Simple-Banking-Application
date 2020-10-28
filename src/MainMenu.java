@@ -8,9 +8,20 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 
+/*
+
+METHODS WILL NEED TO BE EDITED IF CUSTOMER STRUCTURE STAYS AS IS IN 1ST
+VERSION BUT SHOULD FIX IF WE CHANGE WHERE WE HAVE CERTAIN ACCOUNT METHODS
+
+ */
+
 public class MainMenu {
 
-    ArrayList<Customer> accounts = new ArrayList<Customer>;
+    ArrayList<Customer> accounts;
+
+    public MainMenu(){
+
+    }
 
     public MainMenu(ArrayList<Customer> accountsIn){
         this.accounts = accountsIn;
@@ -36,7 +47,7 @@ public class MainMenu {
         int payerIndex = -1;
         String loginSelection;
 
-        if (!isBankManager.equals("Y") || !isBankManager.equals("y")){
+        if (!isBankManager.equals("Y") || !isBankManager.equals("y")){//Can delete lines of code with toLowerCase
 
             System.out.println("choose which account to lookup by entering 1 or 2:\n"+
                     "1. ID number e.g 00\n"+
