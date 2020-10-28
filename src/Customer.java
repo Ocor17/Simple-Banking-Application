@@ -24,6 +24,7 @@ public class Customer extends Person {
     private double creditStartingBalance;
     private double creditCurrentBalance;
     private int creditMax;
+    private String password;
     //private final Checking userChecking = new Checking();
 
     /**
@@ -209,6 +210,27 @@ public class Customer extends Person {
     /**
      * This is the default constructor
      */
+
+
+    /**
+     * sets the password of customer
+     *
+     * @param passwordIn receives password of customer
+     */
+    public void setPassword(String passwordIn){//May need to be removed depending on how we implement
+        this.password = passwordIn;
+
+    }
+
+    /**
+     * gets the password of the current account
+     *
+     * @return password
+     */
+    public String getPassword(){
+        return this.password;
+    }
+
     public Customer() {
         super();
     }

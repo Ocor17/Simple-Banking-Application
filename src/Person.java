@@ -16,6 +16,7 @@ public abstract class Person {
     private int identificationNumber;
     private String address;
     private long phoneNumber;
+    private String email;
 
     /**
      * This is the defaulted constructor
@@ -149,4 +150,14 @@ public abstract class Person {
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+
 }
