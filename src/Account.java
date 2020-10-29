@@ -14,6 +14,7 @@
     // initializing attributes
     private int accountNumber;
     private double startingBalance;
+    private double balance;
 
     /**
      * This is the default constructor
@@ -30,6 +31,7 @@
     public Account(int accountNumberIn, double startingBalanceIn) {
         this.accountNumber = accountNumberIn;
         this.startingBalance = startingBalanceIn;
+        this.balance = startingBalanceIn;
     }
 
     /**
@@ -65,6 +67,16 @@
      * @param startingBalanceIn Receives balance.
      */
     public void setStartingBalance(double startingBalanceIn) {
+
+        if(Double.isNaN(this.startingBalance)){
+            this.balance = startingBalanceIn;
+        }
+
         this.startingBalance = startingBalanceIn;
     }
+
+    public double getBalance() {
+        return this.balance;
+    }
+
 }
