@@ -25,6 +25,9 @@ public class Customer extends Person {
     private double creditCurrentBalance;
     private int creditMax;
     private String password;
+    private Savings savingsAcc;
+    private Checking checkingAcc;
+    private Credit creditAcc;
     //private final Checking userChecking = new Checking();
 
     /**
@@ -245,20 +248,14 @@ public class Customer extends Person {
      * @param addressIn              Receives address @see Person
      * @param phoneNumberIn          Receives phone number @see Person
      */
-    public Customer(String firstNameIn, String lastNameIn, String dateOfBirthIn, int identificationNumberIn, String addressIn,
-                    long phoneNumberIn, int checkingAccountNumberIn, int savingsAccountNumberIn, int creditAccountNumberIn,
-                    double checkingStartingBalanceIn, double savingsStartingBalanceIn, double creditStartingBalanceIn, double checkingCurrentBalanceIn, double savingsCurrentBalanceIn, double creditCurrentBalanceIn, int creditMaxIn) {
-        super(firstNameIn, lastNameIn, dateOfBirthIn, identificationNumberIn, addressIn, phoneNumberIn);
-        this.checkingAccountNumber = checkingAccountNumberIn;
-        this.savingsAccountNumber = savingsAccountNumberIn;
-        this.creditAccountNumber = creditAccountNumberIn;
-        this.checkingStartingBalance = checkingStartingBalanceIn;
-        this.savingsStartingBalance = savingsStartingBalanceIn;
-        this.creditStartingBalance = creditStartingBalanceIn;
-        this.checkingCurrentBalance = checkingCurrentBalanceIn;
-        this.savingsCurrentBalance = savingsCurrentBalanceIn;
-        this.creditCurrentBalance = creditCurrentBalanceIn;
-        this.creditMax = creditMaxIn;
+    public Customer(String firstNameIn, String lastNameIn, String dateOfBirthIn, String IDNumberIn, String addressIn, long phoneNumberIn, Checking checkingAccIn, Savings savingsAccIn, Credit creditAccIn){
+
+        super(firstNameIn,lastNameIn,dateOfBirthIn,IDNumberIn,addressIn,phoneNumberIn);
+
+        this.checkingAcc = checkingAccIn;
+        this.savingsAcc = savingsAccIn;
+        this.creditAcc = creditAccIn;
+
     }
 
     /**
