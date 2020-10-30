@@ -13,7 +13,7 @@
 
     // initializing attributes
     private int accountNumber;
-    private double startingBalance;
+    private double startingBalance = Double.NaN;
     private double balance;
 
     /**

@@ -21,7 +21,7 @@ public class RunBank {
         Customer user = new Customer();
         ArrayList<Customer> accounts = managerCustomerObject.csvToArray();
         MainMenu mainMenu = new MainMenu(accounts);
-        //mainMenu.test(); testing main menu variables actually get set
+        //mainMenu.test(); //testing main menu variables actually get set
 
         while (true) {
             System.out.println("What would you like to do\n" +

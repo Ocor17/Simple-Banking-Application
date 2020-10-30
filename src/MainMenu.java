@@ -29,7 +29,8 @@ public class MainMenu {
     public void test(){
         System.out.println(accounts.size());
         for (int i =0; i < accounts.size();i++) {
-            System.out.println(accounts.get(i).getFirstName()+" "+accounts.get(i).getCheckingAcc().getStartingBalance());
+
+            System.out.println(accounts.get(i).getFirstName()+", "+accounts.get(i).getCheckingAcc().getBalance()+", "+accounts.get(i).getCheckingAcc().getStartingBalance());
         }
     }
 
