@@ -34,13 +34,14 @@ public abstract class Person {
      * @param addressIn Receives address.
      * @param phoneNumberIn Receives phone number.
      */
-    public Person(String firstNameIn, String lastNameIn, String dateOfBirthIn, int identificationNumberIn, String addressIn, long phoneNumberIn) {
+    public Person(String firstNameIn, String lastNameIn, String dateOfBirthIn, int identificationNumberIn, String addressIn, long phoneNumberIn, String emailIn) {
         this.firstName = firstNameIn;
         this.lastName = lastNameIn;
         this.dateOfBirth = dateOfBirthIn;
         this.identificationNumber = identificationNumberIn;
         this.address = addressIn;
         this.phoneNumber = phoneNumberIn;
+        this.email = emailIn;
     }
 
     /**

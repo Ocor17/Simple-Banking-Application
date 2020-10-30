@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +20,8 @@ public class RunBank {
         Customer managerCustomerObject = new Customer();
         Customer user = new Customer();
         ArrayList<Customer> accounts = managerCustomerObject.csvToArray();
+        MainMenu mainMenu = new MainMenu(accounts);
+        //mainMenu.test(); testing main menu variables actually get set
 
         while (true) {
             System.out.println("What would you like to do\n" +
@@ -33,13 +36,7 @@ public class RunBank {
                     break;
 
                 case "2":
-//                    try {
-//                        mainMenu(accounts);
-//                        updatedLog(accounts);
-//                    }
-//                    catch (IOException e) {
-//                        System.out.println("File missing");
-//                    }
+                    mainMenu.mainMenu(accounts);
                     break;
 
                 case "3":

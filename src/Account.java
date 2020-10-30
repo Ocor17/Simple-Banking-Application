@@ -68,10 +68,6 @@
      */
     public void setStartingBalance(double startingBalanceIn) {
 
-        if(Double.isNaN(this.startingBalance)){
-            this.balance = startingBalanceIn;
-        }
-
         this.startingBalance = startingBalanceIn;
     }
 
@@ -80,6 +76,9 @@
     }
 
     public void setBalance(double balanceIn) {
+        if(Double.isNaN(startingBalance)){
+            this.startingBalance = balanceIn;
+        }
         this.balance = balanceIn;
     }
 

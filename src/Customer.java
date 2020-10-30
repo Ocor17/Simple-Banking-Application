@@ -129,10 +129,11 @@ public class Customer extends Person {
      * @param addressIn              Receives address @see Person
      * @param phoneNumberIn          Receives phone number @see Person
      */
-    public Customer(String firstNameIn, String lastNameIn, String dateOfBirthIn, int IDNumberIn, String addressIn, long phoneNumberIn, Checking checkingAccIn, Savings savingsAccIn, Credit creditAccIn){
+    public Customer(String firstNameIn, String lastNameIn, String dateOfBirthIn, int IDNumberIn, String addressIn, long phoneNumberIn,String emailIn, String passwordIn , Checking checkingAccIn, Savings savingsAccIn, Credit creditAccIn){
 
-        super(firstNameIn,lastNameIn,dateOfBirthIn,IDNumberIn,addressIn,phoneNumberIn);
+        super(firstNameIn,lastNameIn,dateOfBirthIn,IDNumberIn,addressIn,phoneNumberIn, emailIn);
 
+        this.password = passwordIn;
         this.checkingAcc = checkingAccIn;
         this.savingsAcc = savingsAccIn;
         this.creditAcc = creditAccIn;
@@ -156,7 +157,8 @@ public class Customer extends Person {
         //current data contains 13 fields, that will be used to compare with modulo
         int IDCount =0, savingNumCount =0, lastNamCount =0, DOBCount =0,
                 checkingNumCount =0, creditNumCount =0, phoneNumCount =0, checkingBalCount =0,
-                savingBalCount =0, creditMaxCount =0, creditBalCount =0, addressCount =0, firstNamCount =0;
+                savingBalCount =0, creditMaxCount =0, creditBalCount =0, addressCount =0, firstNamCount =0,
+                emailCount = 0, passwordCount =0;
 
         int mainCounter = 0;
         int columnNum;
@@ -169,7 +171,7 @@ public class Customer extends Person {
 
         Scanner sc = new Scanner(System.in);
         try {
-            sc = new Scanner(new File("CS 3331 - Bank Users 3.csv"));
+            sc = new Scanner(new File("CS 3331 - Bank Users 4.csv"));
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
@@ -178,9 +180,9 @@ public class Customer extends Person {
         sc.useDelimiter(","); //from thinkgeek and stackoverflow
 
         //used to set where each field is to be used with modulo
-        while (sc.hasNext() && mainCounter != 13) {
+        while (sc.hasNext() && mainCounter != 15) {
 
-            if (mainCounter == 12) {
+            if (mainCounter == 14) {
                 current = sc.nextLine();
             }
             else {
@@ -240,6 +242,12 @@ public class Customer extends Person {
                 case "First Name":
                     firstNamCount = mainCounter;
                     break;
+                case "Email":
+                    emailCount = mainCounter;
+                    break;
+                case "Password":
+                    passwordCount = mainCounter;
+                    break;
 
             }
 
@@ -262,7 +270,7 @@ public class Customer extends Person {
             while (currentCustomer <= columnNum) {
                 mainCounter++;
 
-                if (currentCustomer >= 13) {
+                if (currentCustomer >= 15) {
                     current = sc.nextLine().substring(1);
 
                 }
@@ -284,7 +292,7 @@ public class Customer extends Person {
 
                 }
                 else if(mainCounter%columnNum == DOBCount) {
-                    customerAcc.setDateOfBirth(current);
+                    customerAcc.setDateOfBirth(current.concat(", "+sc.next()));
 
                 }
                 else if(mainCounter%columnNum == checkingNumCount) {
@@ -300,11 +308,11 @@ public class Customer extends Person {
 
                 }
                 else if(mainCounter%columnNum == checkingBalCount) {
-                    customerAcc.checkingAcc.setStartingBalance(Double.parseDouble(current));
+                    customerAcc.checkingAcc.setBalance(Double.parseDouble(current));
 
                 }
                 else if(mainCounter%columnNum == savingBalCount) {
-                    customerAcc.savingsAcc.setStartingBalance(Double.parseDouble(current));
+                    customerAcc.savingsAcc.setBalance(Double.parseDouble(current));
 
                 }
                 else if(mainCounter%columnNum == creditMaxCount) {
@@ -312,7 +320,7 @@ public class Customer extends Person {
 
                 }
                 else if(mainCounter%columnNum == creditBalCount) {
-                    customerAcc.creditAcc.setStartingBalance(Double.parseDouble(current));
+                    customerAcc.creditAcc.setBalance(Double.parseDouble(current));
 
                 }
                 else if(mainCounter%columnNum == addressCount) {
@@ -323,6 +331,12 @@ public class Customer extends Person {
                     customerAcc.setFirstName(current);
 
                 }
+                else if(mainCounter%columnNum == emailCount){
+                    customerAcc.setEmail(current);
+                }
+                else if(mainCounter%columnNum == passwordCount){
+                    customerAcc.setPassword(current);
+                }
                 else{
                     System.out.println("YOU SHOULD NOT SEE THIS SOMETHING HAS GONE WRONG WITH COUNTER");
                 }
@@ -330,12 +344,13 @@ public class Customer extends Person {
                 currentCustomer++;
             }
             //System.out.println(customerAcc.printAllFields());
-
+            //System.out.println(customerAcc.getPassword());
             accounts.add(customerAcc);
+
         }
 
         sc.close();
-
+        //System.out.println(accounts.size());
         return accounts;
 
     }
@@ -367,6 +382,10 @@ public class Customer extends Person {
         String address = "\"" + addressScanner.nextLine() + "\"";
         System.out.print("10-digit phone number: ");
         long phoneNumber = userInput.nextLong();
+        System.out.println("Email:");
+        String email = userInput.next();
+        System.out.println("Password");
+        String password = userInput.next();
         System.out.print("Savings account number: ");
         newSavings.setAccountNumber(userInput.nextInt());
         System.out.print("Amount to deposit into savings: ");
@@ -404,7 +423,7 @@ public class Customer extends Person {
             creditStartingBalance = 0;
         }
 
-        Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber,newChecking,newSavings,newCredit);
+        Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber, email, password, newChecking,newSavings,newCredit);
 
         customerArrayList.add(customerInfo);
 
