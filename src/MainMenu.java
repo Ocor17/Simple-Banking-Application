@@ -135,6 +135,7 @@ public class MainMenu {
         int payerIndex = -1;
         String isBankManager;
         String loginSelection;
+        String password;
 
 
         System.out.println("Are you a Bank Manager? Y/N");
@@ -186,6 +187,15 @@ public class MainMenu {
             return;
         }
 
+        System.out.println("enter password:");
+        password = input.next();
+        if(acc.get(payerIndex).getPassword().equals(password)){
+            System.out.println("password correct!");
+        }
+        else {
+            System.out.println("Wrong password! Exiting!");
+            return;
+        }
 
         while (true) {
             System.out.println("Select what you want to do by typing only the number\n" +
