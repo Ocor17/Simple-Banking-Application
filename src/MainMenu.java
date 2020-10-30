@@ -1,5 +1,7 @@
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -268,6 +270,8 @@ public class MainMenu {
                     break;
 
                 case "6":
+                    System.out.println("Returning to home page...");
+                    newBalanceSheet(acc);
                     return;
 
                 default:
@@ -747,6 +751,39 @@ public class MainMenu {
         catch (IOException e) {
             System.out.println("Error");
         }
+    }
+
+    /**
+     * This method is used to keep track of the new balances on a csv file called newBalanceSheet.csv
+     *
+     * @param customerArrayList Receives customer array list.
+     */
+    public static void newBalanceSheet(ArrayList<Customer> customerArrayList) {
+
+        try (PrintWriter writer = new PrintWriter("New Balance Sheet.csv")) {
+            writer.println("First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Credit Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance, Password, Email,Credit Max");
+            for (int i = 0; i < customerArrayList.size(); i++) {
+                writer.print(customerArrayList.get(i).getFirstName() + ",");
+                writer.print(customerArrayList.get(i).getLastName() + ",");
+                writer.print(customerArrayList.get(i).getDateOfBirth() + ",");
+                writer.print(customerArrayList.get(i).getIdentificationNumber() + ",");
+                writer.print(customerArrayList.get(i).getAddress() + ",");
+                writer.print(customerArrayList.get(i).getPhoneNumber() + ",");
+                writer.print(customerArrayList.get(i).getCheckingAcc().getAccountNumber() + ",");
+                writer.print(customerArrayList.get(i).getSavingsAcc().getAccountNumber() + ",");
+                writer.print(customerArrayList.get(i).getCreditAcc().getAccountNumber() + ",");
+                writer.print(customerArrayList.get(i).getCheckingAcc().getBalance() + ",");
+                writer.print(customerArrayList.get(i).getSavingsAcc().getBalance() + ",");
+                writer.print(customerArrayList.get(i).getCreditAcc().getBalance() + ",");
+                writer.print(customerArrayList.get(i).getPassword() + ",");
+                writer.print(customerArrayList.get(i).getEmail() + ",");
+                writer.println(customerArrayList.get(i).getCreditAcc().getCreditMax());
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Error");
+        }
+
     }
 
 }
