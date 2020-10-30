@@ -31,8 +31,6 @@ public class MainMenu {
 
     }
 
-
-
     /**
      * method to add bank manager functionality such as showing all aspects of an account
      * @param isBankManager confirms user is bank manager
@@ -77,7 +75,7 @@ public class MainMenu {
             }
 
             for(int i=0; i<acc.size();i++){
-                if(acc.get(i).getIDNumber().equals(payerID) || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
+                if(payerID.equals(acc.get(i).getIdentificationNumber())|| (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
                     payerIndex = i;
                 }
 
@@ -172,7 +170,7 @@ public class MainMenu {
 
 
         for(int i=0; i<acc.size();i++){
-            if(acc.get(i).getIDNumber().equals(payerID) || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
+            if(payerID.equals(acc.get(i).getIdentificationNumber()) || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
                 payerIndex = i;
             }
 
@@ -522,7 +520,7 @@ public class MainMenu {
                     if (amount > Math.abs(acc.getCreditAcc().getBalance())) {
                         System.out.println("Cannot deposit more than what is owed, end balance at most must be 0");
                     } else {
-                        acc.getCreditAcc().setStartingBalance()(acc.getCreditAcc().getBalance() + amount);
+                        acc.getCreditAcc().setStartingBalance(acc.getCreditAcc().getBalance() + amount);
                         System.out.println("amount in Credit account: $" + amount +
                                 "\nnew balance is: " + acc.getCreditAcc().getBalance());
 
@@ -622,7 +620,7 @@ public class MainMenu {
                     break;
 
                 case "3":
-                    acc.getCreditAcc().setStartingBalance()(acc.getCreditAcc().getBalance()-amount);
+                    acc.getCreditAcc().setStartingBalance(acc.getCreditAcc().getBalance()-amount);
                     System.out.println("Withdrew: $"+amount+" from Credit account, ne balance: $" + acc.getCreditAcc().getBalance());
 
                     try {
