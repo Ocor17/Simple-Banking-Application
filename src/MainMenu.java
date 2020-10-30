@@ -13,6 +13,9 @@ import java.util.ArrayList;
 METHODS WILL NEED TO BE EDITED IF CUSTOMER STRUCTURE STAYS AS IS IN 1ST
 VERSION BUT SHOULD FIX IF WE CHANGE WHERE WE HAVE CERTAIN ACCOUNT METHODS
 
+DOUBLE CHECK STARTING BALANCE AND BALANCE FUNCTIONS IF THEY'RE IN RIGHT ORDER
+MAY NOT WORK AS INTENDED UNTIL OTHER CLASSES ARE UPDATED
+
  */
 
 public class MainMenu {
@@ -245,7 +248,7 @@ public class MainMenu {
 
             switch (selection) {
                 case "1":
-                    System.out.println("amount in Checking account: $" + acc.getCheckingBalance());
+                    System.out.println("amount in Checking account: $" + acc.getCheckingAcc().getBalance());
 
                     try {
                         transactionLog(acc, acc, 0, "balance", "checking", "");
@@ -256,7 +259,7 @@ public class MainMenu {
                     break;
 
                 case "2":
-                    System.out.println("amount in Savings account: $" + acc.getSavingsBalance());
+                    System.out.println("amount in Savings account: $" + acc.getSavingsAcc().getBalance());
 
                     try {
                         transactionLog(acc, acc, 0, "balance", "savings","");
@@ -267,7 +270,7 @@ public class MainMenu {
                     break;
 
                 case "3":
-                    System.out.println("amount in Credit account: $" + acc.getCreditBalance());
+                    System.out.println("amount in Credit account: $" + acc.getCreditAcc().getBalance());
 
                     try {
                         transactionLog(acc, acc, 0, "balance", "credit","");
@@ -338,9 +341,9 @@ public class MainMenu {
 
                     } else if (secondAccount.equals("2")) {//Transfer to Savings
 
-                        if (amount < acc.getCheckingBalance()) {
-                            acc.setCheckingBalance(acc.getCheckingBalance() - amount);
-                            acc.setSavingsBalance(acc.getSavingsBalance() + amount);
+                        if (amount < acc.getCheckingAcc().getBalance()) {
+                            acc.getCheckingAcc().setStartingBalance(acc.getCheckingAcc().getBalance() - amount);
+                            acc.getSavingsAcc().setStartingBalance(acc.getSavingsAcc().getBalance() + amount);
                             System.out.println("$" + amount + " was transferred from Checking to Savings");
 
                             try {
@@ -353,9 +356,9 @@ public class MainMenu {
                         }
                     } else if (secondAccount.equals("3")) {//Transfer to Credit
 
-                        if (amount < acc.getCheckingBalance() && amount < Math.abs(acc.getCreditBalance())) {
-                            acc.setCheckingBalance(acc.getCheckingBalance() - amount);
-                            acc.setCreditBalance(acc.getCreditBalance() + amount);
+                        if (amount < acc.getCheckingAcc().getBalance() && amount < Math.abs(acc.getCreditAcc().getBalance())) {
+                            acc.getCheckingAcc().setStartingBalance(acc.getCheckingAcc().getBalance() - amount);
+                            acc.getCreditAcc().setStartingBalance(acc.getCreditAcc().getBalance() + amount);
                             System.out.println("$" + amount + " was transferred from Checking to Credit");
 
                             try {
@@ -363,7 +366,7 @@ public class MainMenu {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        } else if (amount > acc.getCheckingBalance()) {
+                        } else if (amount > acc.getCheckingAcc().getBalance()) {
                             System.out.println("not enough funds");
                         } else {
                             System.out.println("cannot deposit more than what is owed");
@@ -376,9 +379,9 @@ public class MainMenu {
 
                     if (secondAccount.equals("1")) {//Transfer to Checking
 
-                        if (amount < acc.getSavingsBalance()) {
-                            acc.setSavingsBalance(acc.getSavingsBalance() - amount);
-                            acc.setCheckingBalance(acc.getCheckingBalance() + amount);
+                        if (amount < acc.getSavingsAcc().getBalance()) {
+                            acc.getSavingsAcc().setStartingBalance(acc.getSavingsAcc().getBalance() - amount);
+                            acc.getCheckingAcc().setStartingBalance(acc.getCheckingAcc().getBalance() + amount);
                             System.out.println("$" + amount + " was transferred from Savings to Checking");
 
                             try {
@@ -396,9 +399,9 @@ public class MainMenu {
 
                     } else if (secondAccount.equals("3")) {//Transfer to Credit
 
-                        if (amount < acc.getSavingsBalance() && amount < Math.abs(acc.getCreditBalance())) {
-                            acc.setSavingsBalance(acc.getSavingsBalance() - amount);
-                            acc.setCreditBalance(acc.getCreditBalance() + amount);
+                        if (amount < acc.getSavingsAcc().getBalance() && amount < Math.abs(acc.getCreditAcc().getBalance())) {
+                            acc.getSavingsAcc().setStartingBalance(acc.getSavingsAcc().getBalance() - amount);
+                            acc.getCreditAcc().setStartingBalance(acc.getCreditAcc().getBalance() + amount);
                             System.out.println("$" + amount + " was transferred from Savings to Credit");
 
                             try {
@@ -407,7 +410,7 @@ public class MainMenu {
                                 e.printStackTrace();
                             }
 
-                        } else if (amount > acc.getSavingsBalance()) {
+                        } else if (amount > acc.getSavingsAcc().getBalance()) {
                             System.out.println("not enough funds");
                         } else {
                             System.out.println("cannot deposit more than what is owed");
@@ -419,8 +422,8 @@ public class MainMenu {
                 case "3"://Transfer from Credit
                     if (secondAccount.equals("1")) {//Transfer to Checking
 
-                        acc.setCreditBalance(acc.getCreditBalance() - amount);
-                        acc.setCreditBalance(acc.getCheckingBalance() + amount);
+                        acc.getCreditAcc().setStartingBalance(acc.getCreditAcc().getBalance() - amount);
+                        acc.getCreditAcc().setStartingBalance(acc.getCheckingAcc().getBalance() + amount);
 
                         System.out.println("$" + amount + " was transferred from Credit to Checking");
 
@@ -432,8 +435,8 @@ public class MainMenu {
 
                     } else if (secondAccount.equals("2")) {//Transfer to Savings
 
-                        acc.setCreditBalance(acc.getCreditBalance() - amount);
-                        acc.setSavingsBalance(acc.getSavingsBalance() + amount);
+                        acc.getCreditAcc().setStartingBalance(acc.getCreditAcc().getBalance() - amount);
+                        acc.getSavingsAcc().setStartingBalance(acc.getSavingsAcc().getBalance() + amount);
 
                         System.out.println("$" + amount + " was transferred from Credit to Savings");
 
@@ -488,9 +491,9 @@ public class MainMenu {
 
             switch (selection) {
                 case "1":
-                    acc.setCheckingBalance(acc.getCheckingBalance() + amount);
+                    acc.getCheckingAcc().setStartingBalance(acc.getCheckingAcc().getBalance() + amount);
                     System.out.println("Succesful deposit of $" + amount +
-                            "\nnew balance is: " + acc.getCheckingBalance());
+                            "\nnew balance is: " + acc.getCheckingAcc().getBalance());
 
                     try {
                         transactionLog(acc,acc,amount,"deposit","checking","");
@@ -502,9 +505,9 @@ public class MainMenu {
 
                 case "2":
 
-                    acc.setSavingsBalance(acc.getSavingsBalance() + amount);
+                    acc.getSavingsAcc().setStartingBalance(acc.getSavingsAcc().getBalance() + amount);
                     System.out.println("amount in Savings account: $" + amount +
-                            "\nnew balance is: " + acc.getSavingsBalance());
+                            "\nnew balance is: " + acc.getSavingsAcc().getBalance());
 
                     try {
                         transactionLog(acc,acc,amount,"deposit","savings","");
@@ -516,12 +519,12 @@ public class MainMenu {
 
                 case "3":
 
-                    if (amount > Math.abs(acc.getCreditBalance())) {
+                    if (amount > Math.abs(acc.getCreditAcc().getBalance())) {
                         System.out.println("Cannot deposit more than what is owed, end balance at most must be 0");
                     } else {
-                        acc.setCreditBalance(acc.getCreditBalance() + amount);
+                        acc.getCreditAcc().setStartingBalance()(acc.getCreditAcc().getBalance() + amount);
                         System.out.println("amount in Credit account: $" + amount +
-                                "\nnew balance is: " + acc.getCreditBalance());
+                                "\nnew balance is: " + acc.getCreditAcc().getBalance());
 
                         try {
                             transactionLog(acc,acc,amount,"deposit","credit","");
@@ -583,12 +586,12 @@ public class MainMenu {
                 case "1":
 
 
-                    if (acc.getCheckingBalance() < amount){
+                    if (acc.getCheckingAcc().getBalance() < amount){
                         System.out.println("not enough funds");
                     }
                     else {
-                        acc.setCheckingBalance(acc.getCheckingBalance()-amount);
-                        System.out.println("Withdrew $"+amount+" from checking account, new balance: $" + acc.getCheckingBalance());
+                        acc.getCheckingAcc().setStartingBalance(acc.getCheckingAcc().getBalance()-amount);
+                        System.out.println("Withdrew $"+amount+" from checking account, new balance: $" + acc.getCheckingAcc().getBalance());
 
                         try {
                             transactionLog(acc,acc,amount,"withdraw","checking","");
@@ -602,12 +605,12 @@ public class MainMenu {
 
                 case "2":
 
-                    if (acc.getSavingsBalance() < amount){
+                    if (acc.getSavingsAcc().getBalance() < amount){
                         System.out.println("not enough funds");
                     }
                     else {
-                        acc.setSavingsBalance(acc.getSavingsBalance()-amount);
-                        System.out.println("Withdrew $"+amount+" from Savings account, new balance: $" + acc.getSavingsBalance());
+                        acc.getSavingsAcc().setStartingBalance(acc.getSavingsAcc().getBalance()-amount);
+                        System.out.println("Withdrew $"+amount+" from Savings account, new balance: $" + acc.getSavingsAcc().getBalance());
 
                         try {
                             transactionLog(acc,acc,amount,"deposit","savings","");
@@ -619,8 +622,8 @@ public class MainMenu {
                     break;
 
                 case "3":
-                    acc.setCreditBalance(acc.getCreditBalance()-amount);
-                    System.out.println("Withdrew: $"+amount+" from Credit account, ne balance: $" + acc.getCreditBalance());
+                    acc.getCreditAcc().setStartingBalance()(acc.getCreditAcc().getBalance()-amount);
+                    System.out.println("Withdrew: $"+amount+" from Credit account, ne balance: $" + acc.getCreditAcc().getBalance());
 
                     try {
                         transactionLog(acc,acc,amount,"deposit","credit","");
@@ -686,7 +689,7 @@ public class MainMenu {
 
 
         for(int i=0; i<acc.size();i++){
-            if(acc.get(i).getIDNumber().equals(payeeID) || (acc.get(i).getFirstName().equals(payeeFirstName) && acc.get(i).getLastName().equals(payeeLastName))){
+            if( payeeID.equals( acc.get(i).getIdentificationNumber()) || (acc.get(i).getFirstName().equals(payeeFirstName) && acc.get(i).getLastName().equals(payeeLastName))){
                 payeeIndex = i;
             }
         }
@@ -707,9 +710,9 @@ public class MainMenu {
 
         if (payerSelection.equals("1")){
 
-            currentAcc.setCheckingBalance(currentAcc.getCheckingBalance()-amount);//set balance for payer
+            currentAcc.getCheckingAcc().setStartingBalance(currentAcc.getCheckingAcc().getBalance()-amount);//set balance for payer
 
-            acc.get(payeeIndex).setCheckingBalance(acc.get(payeeIndex).getCheckingBalance()+amount);//set balance for payee
+            acc.get(payeeIndex).getCheckingAcc().setStartingBalance(acc.get(payeeIndex).getCheckingAcc().getBalance()+amount);//set balance for payee
 
 
 
@@ -724,9 +727,9 @@ public class MainMenu {
         }
         else if (payerSelection.equals("2")){
 
-            currentAcc.setCreditBalance(currentAcc.getCreditBalance()-amount);//set balance for payer
+            currentAcc.getCreditAcc().setStartingBalance(currentAcc.getCreditAcc().getBalance()-amount);//set balance for payer
 
-            acc.get(payeeIndex).setCheckingBalance(acc.get(payeeIndex).getCheckingBalance()+amount);//set balance for payee
+            acc.get(payeeIndex).getCheckingAcc().setStartingBalance(acc.get(payeeIndex).getCheckingAcc().getBalance()+amount);//set balance for payee
 
             System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+amount+
                     " to "+acc.get(payeeIndex).getFirstName()+" "+acc.get(payeeIndex).getLastName());

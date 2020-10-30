@@ -45,6 +45,34 @@ public class Customer extends Person {
         return this.password;
     }
 
+    public Checking getCheckingAcc(){
+        return this.checkingAcc;
+    }
+
+    public void setCheckingAcc(Checking checkingAccIn){
+        this.checkingAcc =checkingAccIn;
+    }
+
+    public Savings getSavingsAcc(){
+        return this.savingsAcc;
+    }
+
+    public void setSavingsAcc(Savings savingsAccIn){
+
+        this.savingsAcc = savingsAccIn;
+
+    }
+
+    public Credit getCreditAcc(){
+        return this.creditAcc;
+    }
+
+    public void setCreditAcc(Credit creditAccIn){
+
+        this.creditAcc = creditAccIn;
+
+    }
+
     public Customer() {
         super();
     }
