@@ -30,6 +30,50 @@ public class Customer extends Person {
 
     }
 
+    void setCheckingBalance(double amount){
+        checkingAcc.setBalance(amount);
+    }
+
+    double getCheckingBalance(){
+        return checkingAcc.getBalance();
+    }
+
+    void setCheckingNum(int accountNum){
+        checkingAcc.setAccountNumber(accountNum);
+    }
+
+    int getCheckingNum(){
+        return checkingAcc.getAccountNumber();
+    }
+
+    void setSavingsNum(int accountNum){
+        savingsAcc.setAccountNumber(accountNum);
+    }
+
+    int getSavingsNum(){
+        return savingsAcc.getAccountNumber();
+    }
+
+    void setSavingsBalance(double amount){
+        savingsAcc.setBalance(amount);
+    }
+
+    double getSavingsBalance(){
+        return savingsAcc.getBalance();
+    }
+
+    void setCreditBalance(double amount){
+        creditAcc.setBalance(amount);
+    }
+
+    double getCreditBalance(){
+        return creditAcc.getBalance();
+    }
+
+    void setCreditNum(int accountNum){
+        creditAcc.setAccountNumber(accountNum);
+    }
+
     /**
      * gets the password of the current account
      *
@@ -204,9 +248,16 @@ public class Customer extends Person {
         columnNum = mainCounter; //sets columnNum to 13, the number of fields
 
         while (sc.hasNext()) {
+            Checking checkingAcc = new Checking();
+            Savings savingsAcc = new Savings();
+            Credit creditAcc = new Credit();
 
             currentCustomer =1;
             Customer customerAcc = new Customer();
+
+            customerAcc.setCheckingAcc(checkingAcc);
+            customerAcc.setSavingsAcc(savingsAcc);
+            customerAcc.setCreditAcc(creditAcc);
 
             while (currentCustomer <= columnNum) {
                 mainCounter++;
@@ -319,7 +370,7 @@ public class Customer extends Person {
         System.out.print("Savings account number: ");
         newSavings.setAccountNumber(userInput.nextInt());
         System.out.print("Amount to deposit into savings: ");
-        savingsAcc.setStartingBalance(userInput.nextDouble());
+        newSavings.setStartingBalance(userInput.nextDouble());
         //savingsAcc.setStartingBalance(savingsStartingBalance); possibly redundant, ask Alfredo
         int identificationNumber = customerArrayList.size() + 1;
 

@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +12,7 @@ import java.util.Scanner;
  */
 public class RunBank {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
         String firstSelection = "";

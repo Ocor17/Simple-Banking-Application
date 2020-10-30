@@ -79,4 +79,8 @@
         return this.balance;
     }
 
+    public void setBalance(double balanceIn) {
+        this.balance = balanceIn;
+    }
+
 }
