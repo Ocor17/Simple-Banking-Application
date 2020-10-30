@@ -1,20 +1,14 @@
-import java.io.File;
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 
 /*
 
 METHODS WILL NEED TO BE EDITED IF CUSTOMER STRUCTURE STAYS AS IS IN 1ST
 VERSION BUT SHOULD FIX IF WE CHANGE WHERE WE HAVE CERTAIN ACCOUNT METHODS
-
-DOUBLE CHECK STARTING BALANCE AND BALANCE FUNCTIONS IF THEY'RE IN RIGHT ORDER
-MAY NOT WORK AS INTENDED UNTIL OTHER CLASSES ARE UPDATED
 
  */
 
@@ -30,6 +24,8 @@ public class MainMenu {
         this.accounts = accountsIn;
 
     }
+
+
 
     /**
      * method to add bank manager functionality such as showing all aspects of an account
@@ -48,7 +44,7 @@ public class MainMenu {
         int payerIndex = -1;
         String loginSelection;
 
-        if (!isBankManager.equals("Y") || !isBankManager.equals("y")){//Can delete lines of code with toLowerCase
+        if (!isBankManager.toLowerCase().equals("y")){//Can delete lines of code with toLowerCase
 
             System.out.println("choose which account to lookup by entering 1 or 2:\n"+
                     "1. ID number e.g 00\n"+
@@ -75,7 +71,7 @@ public class MainMenu {
             }
 
             for(int i=0; i<acc.size();i++){
-                if(payerID.equals(acc.get(i).getIdentificationNumber())|| (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
+                if(acc.get(i).getIdentificationNumber() == Integer.parseInt(payerID) || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
                     payerIndex = i;
                 }
 
@@ -170,7 +166,7 @@ public class MainMenu {
 
 
         for(int i=0; i<acc.size();i++){
-            if(payerID.equals(acc.get(i).getIdentificationNumber()) || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
+            if(acc.get(i).getIdentificationNumber() == Integer.parseInt(payerID) || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
                 payerIndex = i;
             }
 
@@ -248,33 +244,21 @@ public class MainMenu {
                 case "1":
                     System.out.println("amount in Checking account: $" + acc.getCheckingAcc().getBalance());
 
-                    try {
-                        transactionLog(acc, acc, 0, "balance", "checking", "");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    transactionLog("inquire balance", acc.getFirstName() + " " + acc.getLastName(), "", 0, "checking", "");
 
                     break;
 
                 case "2":
                     System.out.println("amount in Savings account: $" + acc.getSavingsAcc().getBalance());
 
-                    try {
-                        transactionLog(acc, acc, 0, "balance", "savings","");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    transactionLog("inquire balance", acc.getFirstName() + " " + acc.getLastName(), "", 0, "savings", "");
 
                     break;
 
                 case "3":
                     System.out.println("amount in Credit account: $" + acc.getCreditAcc().getBalance());
 
-                    try {
-                        transactionLog(acc, acc, 0, "balance", "credit","");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    transactionLog("inquire balance", acc.getFirstName() + " " + acc.getLastName(), "", 0, "credit", "");
 
                     break;
 
@@ -344,11 +328,8 @@ public class MainMenu {
                             acc.getSavingsAcc().setStartingBalance(acc.getSavingsAcc().getBalance() + amount);
                             System.out.println("$" + amount + " was transferred from Checking to Savings");
 
-                            try {
-                                transactionLog(acc, acc, amount, "transfer", "checking", "savings");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "checking", "savings");
+
                         } else {
                             System.out.println("not enough funds");
                         }
@@ -359,11 +340,8 @@ public class MainMenu {
                             acc.getCreditAcc().setStartingBalance(acc.getCreditAcc().getBalance() + amount);
                             System.out.println("$" + amount + " was transferred from Checking to Credit");
 
-                            try {
-                                transactionLog(acc, acc, amount, "transfer", "checking", "credit");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "checking", "credit");
+
                         } else if (amount > acc.getCheckingAcc().getBalance()) {
                             System.out.println("not enough funds");
                         } else {
@@ -382,11 +360,7 @@ public class MainMenu {
                             acc.getCheckingAcc().setStartingBalance(acc.getCheckingAcc().getBalance() + amount);
                             System.out.println("$" + amount + " was transferred from Savings to Checking");
 
-                            try {
-                                transactionLog(acc, acc, amount, "transfer", "savings", "credit");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "savings", "checking");
 
                         } else {
                             System.out.println("Not enough funds");
@@ -402,11 +376,7 @@ public class MainMenu {
                             acc.getCreditAcc().setStartingBalance(acc.getCreditAcc().getBalance() + amount);
                             System.out.println("$" + amount + " was transferred from Savings to Credit");
 
-                            try {
-                                transactionLog(acc, acc, amount, "transfer", "checking", "credit");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "savings", "credit");
 
                         } else if (amount > acc.getSavingsAcc().getBalance()) {
                             System.out.println("not enough funds");
@@ -425,11 +395,7 @@ public class MainMenu {
 
                         System.out.println("$" + amount + " was transferred from Credit to Checking");
 
-                        try {
-                            transactionLog(acc, acc, amount, "transfer", "credit", "checking");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "credit", "checking");
 
                     } else if (secondAccount.equals("2")) {//Transfer to Savings
 
@@ -438,11 +404,7 @@ public class MainMenu {
 
                         System.out.println("$" + amount + " was transferred from Credit to Savings");
 
-                        try {
-                            transactionLog(acc, acc, amount, "transfer", "credit", "savings");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "credit", "savings");
 
                     } else if (secondAccount.equals("3")) {//Transfer to Credit
 
@@ -493,11 +455,7 @@ public class MainMenu {
                     System.out.println("Succesful deposit of $" + amount +
                             "\nnew balance is: " + acc.getCheckingAcc().getBalance());
 
-                    try {
-                        transactionLog(acc,acc,amount,"deposit","checking","");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    transactionLog("deposit", acc.getFirstName() + " " + acc.getLastName(), "", amount, "", "checking");
 
                     break;
 
@@ -507,11 +465,7 @@ public class MainMenu {
                     System.out.println("amount in Savings account: $" + amount +
                             "\nnew balance is: " + acc.getSavingsAcc().getBalance());
 
-                    try {
-                        transactionLog(acc,acc,amount,"deposit","savings","");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    transactionLog("deposit", acc.getFirstName() + " " + acc.getLastName(), "", amount, "", "savings");
 
                     break;
 
@@ -524,11 +478,7 @@ public class MainMenu {
                         System.out.println("amount in Credit account: $" + amount +
                                 "\nnew balance is: " + acc.getCreditAcc().getBalance());
 
-                        try {
-                            transactionLog(acc,acc,amount,"deposit","credit","");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        transactionLog("deposit", acc.getFirstName() + " " + acc.getLastName(), "", amount, "", "credit");
 
                     }
 
@@ -558,8 +508,7 @@ public class MainMenu {
             System.out.println("Choose account type:\n" +
                     "1. Checking\n" +
                     "2. Savings\n" +
-                    "3. Credit\n" +
-                    "4. Exit");
+                    "3. Exit");
 
             selection = sc.next();
             if (!selection.equals("4")) { //formatting line to skip this block of code appearing when exit is selected
@@ -591,11 +540,7 @@ public class MainMenu {
                         acc.getCheckingAcc().setStartingBalance(acc.getCheckingAcc().getBalance()-amount);
                         System.out.println("Withdrew $"+amount+" from checking account, new balance: $" + acc.getCheckingAcc().getBalance());
 
-                        try {
-                            transactionLog(acc,acc,amount,"withdraw","checking","");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        transactionLog("withdraw", acc.getFirstName() + " " + acc.getLastName(), "", amount, "checking", "");
 
                     }
 
@@ -610,28 +555,12 @@ public class MainMenu {
                         acc.getSavingsAcc().setStartingBalance(acc.getSavingsAcc().getBalance()-amount);
                         System.out.println("Withdrew $"+amount+" from Savings account, new balance: $" + acc.getSavingsAcc().getBalance());
 
-                        try {
-                            transactionLog(acc,acc,amount,"deposit","savings","");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        transactionLog("withdraw", acc.getFirstName() + " " + acc.getLastName(), "", amount, "savings", "");
 
                     }
                     break;
 
                 case "3":
-                    acc.getCreditAcc().setStartingBalance(acc.getCreditAcc().getBalance()-amount);
-                    System.out.println("Withdrew: $"+amount+" from Credit account, ne balance: $" + acc.getCreditAcc().getBalance());
-
-                    try {
-                        transactionLog(acc,acc,amount,"deposit","credit","");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
-
-                case "4":
                     return;
 
             }
@@ -687,7 +616,7 @@ public class MainMenu {
 
 
         for(int i=0; i<acc.size();i++){
-            if( payeeID.equals( acc.get(i).getIdentificationNumber()) || (acc.get(i).getFirstName().equals(payeeFirstName) && acc.get(i).getLastName().equals(payeeLastName))){
+            if(acc.get(i).getIdentificationNumber() == Integer.parseInt(payeeID) || (acc.get(i).getFirstName().equals(payeeFirstName) && acc.get(i).getLastName().equals(payeeLastName))){
                 payeeIndex = i;
             }
         }
@@ -717,11 +646,7 @@ public class MainMenu {
             System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+amount+
                     " to "+acc.get(payeeIndex).getFirstName()+" "+acc.get(payeeIndex).getLastName());
 
-            try {
-                transactionLog(currentAcc,acc.get(payeeIndex),amount,"paySomeone","checking","");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            transactionLog("paySomeone", currentAcc.getFirstName() + " " + currentAcc.getLastName(), acc.get(payeeIndex).getFirstName() + " " + acc.get(payeeIndex).getLastName(), amount, "checking", "checking");
         }
         else if (payerSelection.equals("2")){
 
@@ -732,15 +657,40 @@ public class MainMenu {
             System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+amount+
                     " to "+acc.get(payeeIndex).getFirstName()+" "+acc.get(payeeIndex).getLastName());
 
-            try {
-                transactionLog(currentAcc,acc.get(payeeIndex),amount,"paySomeone","credit","");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            transactionLog("paySomeone", currentAcc.getFirstName() + " " + currentAcc.getLastName(), acc.get(payeeIndex).getFirstName() + " " + acc.get(payeeIndex).getLastName(), amount, "savings", "checking");
 
         }
         else {
             return;
+        }
+    }
+
+    public static void transactionLog(String transactionType, String userName, String otherUserName, double amount, String fromAccount, String toAccount) {
+
+        // using try and catch to prevent IOException error
+        // file will be created if it does not exist, otherwise it will append information
+        // adding if statements that will write different info depending on transaction types
+        try {
+            FileWriter transLogWriter = new FileWriter("transactionLog.txt", true);
+            if (transactionType.equals("inquire balance")) {
+                transLogWriter.write(userName + " inquired his/her " + fromAccount + " balance.\n");
+            }
+            if (transactionType.equals("paySomeone")) {
+                transLogWriter.write(userName + " payed $" + amount + " to " + otherUserName + ".\n");
+            }
+            if (transactionType.equals("deposit")) {
+                transLogWriter.write(userName + " deposited $" + amount + " into their " + fromAccount + " account.\n");
+            }
+            if (transactionType.equals("transfer")) {
+                transLogWriter.write(userName + " transferred $" + amount + " from their " + fromAccount + " account to their " + toAccount + ".\n");
+            }
+            if (transactionType.equals("withdraw")) {
+                transLogWriter.write(userName + " withdrew $" + amount + " from their " + fromAccount + " account.\n");
+            }
+            transLogWriter.close();
+        }
+        catch (IOException e) {
+            System.out.println("Error");
         }
     }
 

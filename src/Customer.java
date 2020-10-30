@@ -18,12 +18,6 @@ public class Customer extends Person {
     private Savings savingsAcc;
     private Checking checkingAcc;
     private Credit creditAcc;
-    //private final Checking userChecking = new Checking();
-
-    
-    /**
-     * This is the default constructor
-     */
 
 
     /**
@@ -73,6 +67,10 @@ public class Customer extends Person {
 
     }
 
+
+    /**
+     * This is the default constructor
+     */
     public Customer() {
         super();
     }
@@ -83,7 +81,7 @@ public class Customer extends Person {
      * @param firstNameIn            Receives first name @see Person
      * @param lastNameIn             Receives last name @see Person
      * @param dateOfBirthIn          Receives date of birth @see Person
-     * @param identificationNumberIn Receives ID number @see Person
+     * @param IDNumberIn Receives ID number @see Person
      * @param addressIn              Receives address @see Person
      * @param phoneNumberIn          Receives phone number @see Person
      */
