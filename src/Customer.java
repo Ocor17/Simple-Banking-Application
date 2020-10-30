@@ -389,7 +389,7 @@ public class Customer extends Person {
         System.out.print("Savings account number: ");
         newSavings.setAccountNumber(userInput.nextInt());
         System.out.print("Amount to deposit into savings: ");
-        newSavings.setStartingBalance(userInput.nextDouble());
+        newSavings.setBalance(userInput.nextDouble());
         //savingsAcc.setStartingBalance(savingsStartingBalance); possibly redundant, ask Alfredo
         int identificationNumber = customerArrayList.size() + 1;
 
@@ -404,7 +404,7 @@ public class Customer extends Person {
             System.out.print("Enter checking account number: ");
             newChecking.setAccountNumber(userInput.nextInt());
             System.out.print("Enter amount to deposit into checking: ");
-            newChecking.setStartingBalance(userInput.nextDouble());
+            newChecking.setBalance(userInput.nextDouble());
             //checkingCurrentBalance = checkingStartingBalance;
         }
 
