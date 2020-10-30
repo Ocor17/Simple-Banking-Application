@@ -49,54 +49,90 @@ public class MainMenu {
 
         String firstName = "";
         String lastName ="";
-        String payerID = "";
+        int payerID = 0;
         int payerIndex = -1;
         String loginSelection;
+        boolean menuExit = false;
+        Checking managerObject = new Checking();
 
-        if (!isBankManager.toLowerCase().equals("y")){//Can delete lines of code with toLowerCase
-
-            System.out.println("choose which account to lookup by entering 1 or 2:\n"+
-                    "1. ID number e.g 00\n"+
-                    "2. First name and last name\n"+
+        while (!menuExit) {
+            System.out.println("choose which account to lookup:\n" +
+                    "1. Inquire account by type/number\n" +
+                    "2. First name and last name\n" +
+                    "3. Inquire all accounts\n" +
                     "Press any other key to exit completely");
 
             loginSelection = input.next();
 
-            if (loginSelection.equals("1")){
-                System.out.println("Enter ID number in full e.g 00:");
-                payerID = input.next();
-            }
-            else if (loginSelection.equals("2")){
+            if (loginSelection.equals("1")) {
+                System.out.println("What account type?");
+                System.out.println("1. Checking");
+                System.out.println("2. Savings");
+                System.out.println("3. Credit");
+                int accountTypeInput = input.nextInt();
+                System.out.println("What is the account number?");
+                int accountNumberInput = input.nextInt();
+                if (accountTypeInput == 1) {
+                    int userAccountIndex = managerObject.searchAccount(acc, accountNumberInput);
+                    try {
+                        managerObject.inquireBalance(acc, userAccountIndex, "checking");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Account does not exist. Returning to menu.");
+                    }
+                }
+                if (accountTypeInput == 2) {
+                    int userAccountIndex = managerObject.searchAccount(acc, accountNumberInput);
+                    try {
+                        managerObject.inquireBalance(acc, userAccountIndex, "savings");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Account does not exist. Returning to menu.");
+                    }
+                }
+                if (accountTypeInput == 3) {
+                    int userAccountIndex = managerObject.searchAccount(acc, accountNumberInput);
+                    try {
+                        managerObject.inquireBalance(acc, userAccountIndex, "credit");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Account does not exist. Returning to menu.");
+                    }
+                }
+
+            } else if (loginSelection.equals("2")) {
 
                 System.out.println("Enter first name");
                 firstName = input.next();
 
                 System.out.println("Enter last name");
                 lastName = input.next();
-            }
-            else {
+
+                int userAccountIndex = -1;
+
+                for (int i = 0; i < acc.size(); i++) {
+                    if (firstName.equals(acc.get(i).getFirstName()) && lastName.equals(acc.get(i).getLastName())) {
+                        userAccountIndex = i;
+                    }
+                }
+
+                if (userAccountIndex == -1) System.out.println("Account not found. Returning to main menu.");
+                else {
+                    System.out.println("Account Summary");
+                    System.out.println("Checking: $" + acc.get(userAccountIndex).getCheckingAcc().getBalance());
+                    System.out.println("Savings:  $" + acc.get(userAccountIndex).getSavingsAcc().getBalance());
+                    System.out.println("Credit:   $" + acc.get(userAccountIndex).getCreditAcc().getBalance());
+                }
+
+
+            } else if (loginSelection.equals("3")) {
+                for (int i = 0; i < acc.size(); i++) {
+                    System.out.println(acc.get(i).getFirstName() + " " + acc.get(i).getLastName());
+                    System.out.println("Checking: $" + acc.get(i).getCheckingAcc().getBalance());
+                    System.out.println("Savings:  $" + acc.get(i).getSavingsAcc().getBalance());
+                    System.out.println("Credit:   $" + acc.get(i).getCreditAcc().getBalance());
+                }
+            } else {
                 System.out.println("Goodbye");
                 return;
             }
-
-            for(int i=0; i<acc.size();i++){
-                if(acc.get(i).getIdentificationNumber() == Integer.parseInt(payerID) || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
-                    payerIndex = i;
-                }
-
-            }
-            if(payerIndex == -1){
-
-                System.out.println("account does not exist");
-                return;
-            }
-            //System.out.println(acc.get(payerIndex).printAllFields());
-
-
-            return;
-        }
-        else{
-            return;
 
         }
 

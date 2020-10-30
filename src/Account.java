@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Account class is an abstract class that is the parent of Checking, Savings and Credit classes.
  * It includes getters and setters as well as multiple methods that will work with the main RunBank class and its child classes.
@@ -80,6 +82,32 @@
             this.startingBalance = balanceIn;
         }
         this.balance = balanceIn;
+    }
+
+    public int searchAccount(ArrayList<Customer> customerArrayList, int accountNumber) {
+
+        int i;
+
+        for (i = 0; i < customerArrayList.size(); i++) {
+            if (accountNumber == customerArrayList.get(i).getCheckingAcc().getAccountNumber() || accountNumber == customerArrayList.get(i).getSavingsAcc().getAccountNumber() || accountNumber == customerArrayList.get(i).getCreditAcc().getAccountNumber()) {
+                break;
+            }
+        }
+
+        return i;
+    }
+
+    public void inquireBalance(ArrayList<Customer> accountList, int i, String accountType) {
+
+        if (accountType.equals("checking")) {
+            System.out.println("Checking $: " + accountList.get(i).getCheckingAcc().getBalance());
+        }
+        if (accountType.equals("savings")) {
+            System.out.println("Savings $: " + accountList.get(i).getSavingsAcc().getBalance());
+        }
+        if (accountType.equals("credit")) {
+            System.out.println("Credit $: " + accountList.get(i).getCreditAcc().getBalance());
+        }
     }
 
 }
