@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 /**
  * Customer class is child class of Person
@@ -180,7 +181,7 @@ public class Customer extends Person {
         sc.useDelimiter(","); //from thinkgeek and stackoverflow
 
         //used to set where each field is to be used with modulo
-        while (sc.hasNext() && mainCounter != 15) {
+        while (sc.hasNext() && mainCounter != 15) { //15 represents the number of fields
 
             if (mainCounter == 14) {
                 current = sc.nextLine();
@@ -400,7 +401,7 @@ public class Customer extends Person {
         newChecking.setStartingBalance(0);
         //newChecking.setStartingBalance(checkingStartingBalance); possibly redundant, ask Alfredo
 
-        if (createAccount.equals("y")) {
+        if (createAccount.equals("y")) { 
             System.out.print("Enter checking account number: ");
             newChecking.setAccountNumber(userInput.nextInt());
             System.out.print("Enter amount to deposit into checking: ");
