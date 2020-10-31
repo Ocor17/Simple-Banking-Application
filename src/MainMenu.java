@@ -187,7 +187,7 @@ public class MainMenu {
         String selection;
         String firstName = "";
         String lastName ="";
-        String payerID = "";
+        int payerID = -1;
         int payerIndex = -1;
         String isBankManager;
         String loginSelection;
@@ -215,7 +215,7 @@ public class MainMenu {
 
         if (loginSelection.equals("1")){
             System.out.println("Enter ID number in full e.g 00:");
-            payerID = input.next();
+            payerID = input.nextInt();
         }
         else if (loginSelection.equals("2")){
 
@@ -230,9 +230,9 @@ public class MainMenu {
             return;
         }
 
-
+        //System.out.println(payerID+" "+firstName+" "+lastName);
         for(int i=0; i<acc.size();i++){
-            if(acc.get(i).getIdentificationNumber() == Integer.parseInt(payerID) || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
+            if(acc.get(i).getIdentificationNumber() == payerID || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))){
                 payerIndex = i;
             }
 
