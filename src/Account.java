@@ -73,9 +73,21 @@ import java.util.ArrayList;
         this.startingBalance = startingBalanceIn;
     }
 
+    /**
+     * gets the balance of an account
+     *
+     * @return returns the balance of the account
+     */
+
     public double getBalance() {
         return this.balance;
     }
+
+    /**
+     * sets the balance of an account
+     *
+     * @param balanceIn the amount to set the balance to
+     */
 
     public void setBalance(double balanceIn) {
         if(Double.isNaN(startingBalance)){
@@ -83,6 +95,14 @@ import java.util.ArrayList;
         }
         this.balance = balanceIn;
     }
+
+    /**
+     *  searches for accounts based on account number
+     *
+     * @param customerArrayList the list of accounts in the bank
+     * @param accountNumber the ID number of the current account
+     * @return returns the index of the account matching the ID number
+     */
 
     public int searchAccount(ArrayList<Customer> customerArrayList, int accountNumber) {
 
@@ -96,6 +116,14 @@ import java.util.ArrayList;
 
         return i;
     }
+
+    /**
+     * prints the balance of the specified account
+     *
+     * @param accountList the list of accounts in the bank
+     * @param i the index of the current account
+     * @param accountType the account type were printing the balance of
+     */
 
     public void inquireBalance(ArrayList<Customer> accountList, int i, String accountType) {
 
