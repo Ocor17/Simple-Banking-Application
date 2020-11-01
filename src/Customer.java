@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 /**
  * Customer class is child class of Person
@@ -13,7 +12,7 @@ import java.util.InputMismatchException;
  * @version 1.0, 10/27/2020
  * @since October 27, 2020
  */
-public class Customer extends Person {
+public class Customer extends Person implements Printable{
 
     private String password;
     private Savings savingsAcc;
@@ -344,8 +343,7 @@ public class Customer extends Person {
 
                 currentCustomer++;
             }
-            //System.out.println(customerAcc.printAllFields());
-            //System.out.println(customerAcc.getPassword());
+
             accounts.add(customerAcc);
 
         }
@@ -371,6 +369,9 @@ public class Customer extends Person {
         Checking newChecking = new Checking();
         Savings newSavings = new Savings();
         Credit newCredit =  new Credit();
+        Customer customer = new Customer();
+
+        customer.printWelcomeMessage();
 
         System.out.println("Please include all fields");
         System.out.print("First name: ");
@@ -383,15 +384,14 @@ public class Customer extends Person {
         String address = "\"" + addressScanner.nextLine() + "\"";
         System.out.print("10-digit phone number: ");
         long phoneNumber = userInput.nextLong();
-        System.out.println("Email:");
+        System.out.print("Email: ");
         String email = userInput.next();
-        System.out.println("Password");
+        System.out.print("Password: ");
         String password = userInput.next();
         System.out.print("Savings account number: ");
         newSavings.setAccountNumber(userInput.nextInt());
         System.out.print("Amount to deposit into savings: ");
         newSavings.setBalance(userInput.nextDouble());
-        //savingsAcc.setStartingBalance(savingsStartingBalance); possibly redundant, ask Alfredo
         int identificationNumber = customerArrayList.size() + 1;
 
         System.out.println("Would you like to create a Checking account? (y/n)");
@@ -399,7 +399,7 @@ public class Customer extends Person {
 
         newChecking.setAccountNumber(0);
         newChecking.setStartingBalance(0);
-        //newChecking.setStartingBalance(checkingStartingBalance); possibly redundant, ask Alfredo
+
 
         if (createAccount.equals("y")) { 
             System.out.print("Enter checking account number: ");
@@ -428,6 +428,40 @@ public class Customer extends Person {
 
         customerArrayList.add(customerInfo);
 
+        System.out.println("Information you entered: ");
+        customer.printAllFields(customerArrayList.get(identificationNumber - 1));
+
+        System.out.println("Your balance is: ");
+        customer.printBalance(customerArrayList, identificationNumber - 1, "");
+
         System.out.println("Redirecting you to main menu...");
+    }
+
+    @Override
+    public void printAllFields(Customer acc) {
+        System.out.println("Name: " + acc.getFirstName() + " " + acc.getLastName());
+        System.out.println("DOB: " + acc.getDateOfBirth());
+        System.out.println("Address: " + acc.getAddress());
+        System.out.println("ID: " + acc.getIdentificationNumber());
+        System.out.println("Phone number: " + acc.getPhoneNumber());
+        System.out.println("Email: " + acc.getEmail());
+        System.out.println("Password: " + acc.getPassword());
+        System.out.println("Savings Account Number: " + acc.getSavingsAcc().getAccountNumber());
+        System.out.println("Checking Account Number: " + acc.getCheckingAcc().getAccountNumber());
+        System.out.println("CreditAccount Number: " + acc.getCreditAcc().getAccountNumber());
+    }
+
+    @Override
+    public void printBalance(ArrayList<Customer> accountList, int i, String accountType) {
+        System.out.println();
+        System.out.println("Checking $: " + accountList.get(i).getCheckingAcc().getBalance());
+        System.out.println("Savings  $: " + accountList.get(i).getSavingsAcc().getBalance());
+        System.out.println("Credit   $:" + accountList.get(i).getCreditAcc().getBalance());
+        System.out.println();
+    }
+
+    @Override
+    public void printWelcomeMessage() {
+        System.out.println("Welcome new user!");
     }
 }

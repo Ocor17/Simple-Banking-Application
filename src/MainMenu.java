@@ -14,7 +14,7 @@ VERSION BUT SHOULD FIX IF WE CHANGE WHERE WE HAVE CERTAIN ACCOUNT METHODS
 
  */
 
-public class MainMenu {
+public class MainMenu implements Printable{
 
     ArrayList<Customer> accounts;
 
@@ -56,6 +56,7 @@ public class MainMenu {
         String loginSelection;
         Checking managerObject = new Checking();
         BankStatement manager = new BankStatement();
+        MainMenu menu = new MainMenu();
 
         while (true) { //changed since previous version was always true anyway
             System.out.println("choose which account to lookup:\n" +
@@ -63,6 +64,7 @@ public class MainMenu {
                     "2. First name and last name\n" +
                     "3. Inquire all accounts\n" +
                     "4. Print bank statement\n" +
+                    "5. Print a customer's personal information\n" +
                     "Press any other key to exit completely");
 
             loginSelection = input.next();
@@ -94,7 +96,7 @@ public class MainMenu {
                 if (accountTypeInput == 1) {
                     int userAccountIndex = managerObject.searchAccount(acc, accountNumberInput);
                     try {
-                        managerObject.inquireBalance(acc, userAccountIndex, "checking");
+                        menu.printBalance(acc, userAccountIndex, "checking");
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Account does not exist. Returning to menu.");
                     }
@@ -102,7 +104,7 @@ public class MainMenu {
                 if (accountTypeInput == 2) {
                     int userAccountIndex = managerObject.searchAccount(acc, accountNumberInput);
                     try {
-                        managerObject.inquireBalance(acc, userAccountIndex, "savings");
+                        menu.printBalance(acc, userAccountIndex, "savings");
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Account does not exist. Returning to menu.");
                     }
@@ -110,7 +112,7 @@ public class MainMenu {
                 if (accountTypeInput == 3) {
                     int userAccountIndex = managerObject.searchAccount(acc, accountNumberInput);
                     try {
-                        managerObject.inquireBalance(acc, userAccountIndex, "credit");
+                        menu.printBalance(acc, userAccountIndex, "credit");
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Account does not exist. Returning to menu.");
                     }
@@ -164,6 +166,19 @@ public class MainMenu {
                 if (userAccountIndex != -1) {
                     manager.createBankStatement(acc, userAccountIndex, acc.get(userAccountIndex).getCheckingAcc().getBalance(), acc.get(userAccountIndex).getSavingsAcc().getBalance(), acc.get(userAccountIndex).getCreditAcc().getBalance());
                 }
+            } else if (loginSelection.equals("5")) {
+                try {
+                    System.out.print("Enter customer's identification number: ");
+                    payerID = input.nextInt();
+                    for (int i = 0; i < acc.size(); i++) {
+                        if (acc.get(i).getIdentificationNumber() == payerID || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))) {
+                            payerIndex = i;
+                        }
+                    }
+                    menu.printAllFields(acc.get(payerIndex));
+                } catch (Exception e) {
+                    System.out.println("Incorrect value");
+                }
             } else {
                 System.out.println("Goodbye");
                 return;
@@ -207,7 +222,9 @@ public class MainMenu {
         String isBankManager;
         String loginSelection;
         String password;
+        MainMenu menu = new MainMenu();
 
+        menu.printWelcomeMessage();
 
         System.out.println("Are you a Bank Manager? Y/N");
         isBankManager = input.next();
@@ -852,6 +869,35 @@ public class MainMenu {
             System.out.println("Error");
         }
 
+    }
+
+    @Override
+    public void printAllFields(Customer acc) {
+        System.out.println("Name: " + acc.getFirstName() + " " + acc.getLastName());
+        System.out.println("DOB: " + acc.getDateOfBirth());
+        System.out.println("Address: " + acc.getAddress());
+        System.out.println("ID: " + acc.getIdentificationNumber());
+        System.out.println("Phone number: " + acc.getPhoneNumber());
+        System.out.println("Email: " + acc.getEmail());
+    }
+
+    @Override
+    public void printBalance(ArrayList<Customer> accountList, int i, String accountType) {
+
+        if (accountType.equals("checking")) {
+            System.out.println("Checking $: " + accountList.get(i).getCheckingAcc().getBalance());
+        }
+        if (accountType.equals("savings")) {
+            System.out.println("Savings $: " + accountList.get(i).getSavingsAcc().getBalance());
+        }
+        if (accountType.equals("credit")) {
+            System.out.println("Credit $: " + accountList.get(i).getCreditAcc().getBalance());
+        }
+    }
+
+    @Override
+    public void printWelcomeMessage() {
+        System.out.println("Welcome to MinerBank!");
     }
 
 }
