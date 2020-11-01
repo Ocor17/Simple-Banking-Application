@@ -54,11 +54,10 @@ public class MainMenu {
         int payerID = 0;
         int payerIndex = -1;
         String loginSelection;
-        boolean menuExit = false;
         Checking managerObject = new Checking();
         BankStatement manager = new BankStatement();
 
-        while (!menuExit) {
+        while (true) { //changed since previous version was always true anyway
             System.out.println("choose which account to lookup:\n" +
                     "1. Inquire account by type/number\n" +
                     "2. First name and last name\n" +
@@ -73,9 +72,25 @@ public class MainMenu {
                 System.out.println("1. Checking");
                 System.out.println("2. Savings");
                 System.out.println("3. Credit");
-                int accountTypeInput = input.nextInt();
-                System.out.println("What is the account number?");
-                int accountNumberInput = input.nextInt();
+
+                int accountTypeInput = 0; // variables must be initialized outside try catch block
+                try {
+                    accountTypeInput = input.nextInt();
+                }
+                catch (InputMismatchException e ){
+                    System.out.println("Invalid input, not a number");
+                }
+
+                int accountNumberInput =0;// variables must be initialized outside try catch block
+
+                try {
+                    System.out.println("What is the account number?");
+                    accountNumberInput = input.nextInt();
+                }
+                catch (InputMismatchException e){
+                    System.out.println("Invalid input, not a number");
+                }
+
                 if (accountTypeInput == 1) {
                     int userAccountIndex = managerObject.searchAccount(acc, accountNumberInput);
                     try {
@@ -214,8 +229,13 @@ public class MainMenu {
         loginSelection = input.next();
 
         if (loginSelection.equals("1")){
-            System.out.println("Enter ID number in full e.g 00:");
-            payerID = input.nextInt();
+            try {
+                System.out.println("Enter ID number in full e.g 00:");
+                payerID = input.nextInt();
+            }
+            catch (InputMismatchException e){
+                System.out.println("Invalid input, not a number");
+            }
         }
         else if (loginSelection.equals("2")){
 
@@ -394,8 +414,13 @@ public class MainMenu {
                 return;
             }
 
-            System.out.println("enter amount to transfer:");
-            amount = input.nextDouble();
+            try {
+                System.out.println("enter amount to transfer:");
+                amount = input.nextDouble();
+            }
+            catch (InputMismatchException e){
+                System.out.println("Invalid input, not a number");
+            }
         }
 
         switch (firstAccount) {
