@@ -117,25 +117,4 @@ import java.util.ArrayList;
         return i;
     }
 
-    /**
-     * prints the balance of the specified account
-     *
-     * @param accountList the list of accounts in the bank
-     * @param i the index of the current account
-     * @param accountType the account type were printing the balance of
-     */
-
-    public void inquireBalance(ArrayList<Customer> accountList, int i, String accountType) {
-
-        if (accountType.equals("checking")) {
-            System.out.println("Checking $: " + accountList.get(i).getCheckingAcc().getBalance());
-        }
-        if (accountType.equals("savings")) {
-            System.out.println("Savings $: " + accountList.get(i).getSavingsAcc().getBalance());
-        }
-        if (accountType.equals("credit")) {
-            System.out.println("Credit $: " + accountList.get(i).getCreditAcc().getBalance());
-        }
-    }
-
 }
