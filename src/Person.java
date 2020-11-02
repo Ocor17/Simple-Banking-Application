@@ -1,5 +1,6 @@
 /**
  * Person class is an abstract class that has a child class called Customer.
+ * @see Customer
  * Taken from Alfredo
  *
  * @author Alfredo Rodriguez, Juan Gutierrez
@@ -152,9 +153,21 @@ public abstract class Person {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * This method sets the email
+     *
+     * @param email Receives the email
+     */
+
     public void setEmail(String email){
         this.email = email;
     }
+
+    /**
+     *  This method gets the email
+     *
+     * @return email
+     */
 
     public String getEmail() {
         return this.email;

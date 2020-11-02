@@ -5,7 +5,13 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 /**
- * Customer class is child class of Person
+ * Customer class is child class of Person and implements Printable.
+ * Uses Checking, Savings and Credit for accounts
+ * @see Person
+ * @see Printable
+ * @see Checking
+ * @see Savings
+ * @see Credit
  *
  * Taken from both Alfredo and Juan
  *
@@ -31,46 +37,101 @@ public class Customer extends Person implements Printable{
 
     }
 
+    /**
+     * This method sets the balance for checking account
+     *
+     * @param amount the amount of money set in checking account
+     */
     void setCheckingBalance(double amount){
         checkingAcc.setBalance(amount);
     }
 
+    /**
+     * This method gets the balance for checking account
+     *
+     * @return returns the balance of checking account
+     */
     double getCheckingBalance(){
         return checkingAcc.getBalance();
     }
 
+    /**
+     * This method sets the account number for checking account
+     *
+     * @param accountNum
+     */
     void setCheckingNum(int accountNum){
         checkingAcc.setAccountNumber(accountNum);
     }
 
+    /**
+     *This method gets the checking number for checking account
+     *
+     * @return returns the account number for checking account
+     */
     int getCheckingNum(){
         return checkingAcc.getAccountNumber();
     }
 
+    /**
+     *This method sets the account number for savings account
+     *
+     * @param accountNum the account number for savings account
+     */
     void setSavingsNum(int accountNum){
         savingsAcc.setAccountNumber(accountNum);
     }
 
+    /**
+     *This method gets the account number for savings account
+     *
+     * @return returns the account number for savings account
+     */
     int getSavingsNum(){
         return savingsAcc.getAccountNumber();
     }
 
+    /**
+     *This method sets the balance for savings account
+     *
+     * @param amount the amount the savings account is set to
+     */
     void setSavingsBalance(double amount){
         savingsAcc.setBalance(amount);
     }
 
+    /**
+     *This method gets the balance of savings account
+     *
+     * @return returns the balance of savings account
+     */
     double getSavingsBalance(){
         return savingsAcc.getBalance();
     }
 
+    /**
+     *This method sets the balance for credit account
+     *
+     * @param amount the amount the credit account is set to
+     */
     void setCreditBalance(double amount){
         creditAcc.setBalance(amount);
     }
 
+    /**
+     *This method gets the balance for credit account
+     *
+     * @return returns the balance for credit account
+     */
     double getCreditBalance(){
         return creditAcc.getBalance();
     }
 
+    /**
+     *This method sets the account number for credit account
+     *
+     * @param accountNum the account number for credit acocount
+     */
     void setCreditNum(int accountNum){
         creditAcc.setAccountNumber(accountNum);
     }
@@ -78,34 +139,64 @@ public class Customer extends Person implements Printable{
     /**
      * gets the password of the current account
      *
-     * @return password
+     * @return returns the password of the current account
      */
     public String getPassword(){
         return this.password;
     }
 
+    /**
+     *This method gets the checking account
+     *
+     * @return returns the checking account as a whole
+     */
     public Checking getCheckingAcc(){
         return this.checkingAcc;
     }
 
+    /**
+     *This method sets the checking account
+     *
+     * @param checkingAccIn the checking account as a whole
+     */
     public void setCheckingAcc(Checking checkingAccIn){
         this.checkingAcc =checkingAccIn;
     }
 
+    /**
+     *This method gets the savings account
+     *
+     * @return returns the savings account as a whole
+     */
     public Savings getSavingsAcc(){
         return this.savingsAcc;
     }
 
+    /**
+     *This method sets the savings account
+     *
+     * @param savingsAccIn the savings account as a whole
+     */
     public void setSavingsAcc(Savings savingsAccIn){
 
         this.savingsAcc = savingsAccIn;
 
     }
 
+    /**
+     *This method gets the credit account
+     *
+     * @return returns the credit account as a whole
+     */
     public Credit getCreditAcc(){
         return this.creditAcc;
     }
 
+    /**
+     *This method sets the credit account
+     *
+     * @param creditAccIn the credit account as a whole
+     */
     public void setCreditAcc(Credit creditAccIn){
 
         this.creditAcc = creditAccIn;
@@ -126,7 +217,7 @@ public class Customer extends Person implements Printable{
      * @param firstNameIn            Receives first name @see Person
      * @param lastNameIn             Receives last name @see Person
      * @param dateOfBirthIn          Receives date of birth @see Person
-     * @param IDNumberIn Receives ID number @see Person
+     * @param IDNumberIn             Receives ID number @see Person
      * @param addressIn              Receives address @see Person
      * @param phoneNumberIn          Receives phone number @see Person
      */
@@ -146,7 +237,7 @@ public class Customer extends Person implements Printable{
      *
      * Taken from Juan
      *
-     * @return                          returns ArrayList containing all information in the "BankUsers.csv" file in separate accounts
+     * @return  returns ArrayList containing all information in the "BankUsers.csv" file in separate accounts
      *
      */
     public ArrayList<Customer> csvToArray() {
@@ -155,7 +246,7 @@ public class Customer extends Person implements Printable{
         //put directly into object and put object into array
 
         //counters used to figure out what data is where in the list
-        //current data contains 13 fields, that will be used to compare with modulo
+        //current data contains 15 fields, that will be used to compare with modulo
         int IDCount =0, savingNumCount =0, lastNamCount =0, DOBCount =0,
                 checkingNumCount =0, creditNumCount =0, phoneNumCount =0, checkingBalCount =0,
                 savingBalCount =0, creditMaxCount =0, creditBalCount =0, addressCount =0, firstNamCount =0,
@@ -254,7 +345,7 @@ public class Customer extends Person implements Printable{
 
         }
 
-        columnNum = mainCounter; //sets columnNum to 13, the number of fields
+        columnNum = mainCounter; //sets columnNum to 15, the number of fields
 
         while (sc.hasNext()) {
             Checking checkingAcc = new Checking();
@@ -484,6 +575,14 @@ public class Customer extends Person implements Printable{
         System.out.println("Redirecting you to main menu...");
     }
 
+
+    /**
+     * method that prints all details of a single account
+     *
+     *
+     * @param acc the account to print all details of
+     */
+
     @Override
     public void printAllFields(Customer acc) {
         System.out.println("Name: " + acc.getFirstName() + " " + acc.getLastName());
@@ -498,6 +597,14 @@ public class Customer extends Person implements Printable{
         System.out.println("CreditAccount Number: " + acc.getCreditAcc().getAccountNumber());
     }
 
+    /**
+     * method that prints the balance of Checking, savings, and credit of an account
+     *
+     * @param accountList the list of accounts in the bank
+     * @param i the index of the account we want from accountList
+     * @param accountType the account type
+     */
+
     @Override
     public void printBalance(ArrayList<Customer> accountList, int i, String accountType) {
         System.out.println();
@@ -506,6 +613,12 @@ public class Customer extends Person implements Printable{
         System.out.println("Credit   $:" + accountList.get(i).getCreditAcc().getBalance());
         System.out.println();
     }
+
+
+    /**
+     * method that prints out a welcome message for a new user
+     *
+     */
 
     @Override
     public void printWelcomeMessage() {

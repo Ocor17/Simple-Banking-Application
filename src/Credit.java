@@ -1,5 +1,7 @@
 /**
- * Credit class is the child class of Account
+ * Credit class is the child class of Account and is used in Customer
+ * @see Account
+ * @see Customer
  *
  * Taken from both Alfredo and Juan
  *

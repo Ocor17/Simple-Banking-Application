@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * This is the RunBank method where the main class it at.
+ * This is the RunBank method where the main class it at utilizes MainMenu and Customer.
+ * @see MainMenu
+ * @see Customer
  *
  * Class taken from both Alfredo and Juan
  *

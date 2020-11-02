@@ -1,5 +1,7 @@
 /**
- * Savings class is child class of Account
+ * Savings class is child class of Account and is used in Customer
+ * @see Savings
+ * @see Customer
  *
  * Taken from both Alfredo and Juan
  *

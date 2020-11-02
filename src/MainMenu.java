@@ -14,20 +14,39 @@ VERSION BUT SHOULD FIX IF WE CHANGE WHERE WE HAVE CERTAIN ACCOUNT METHODS
 
  */
 
+/**
+ * Main Menu class is a class that hold all menu functions to be used in the main RunBank file, implements Printable
+ * @see RunBank
+ * @see Printable
+ *
+ * @author Alfredo Rodriguez, Juan Gutierrez
+ * @version 1.0 10/27/2020
+ * @since October 27, 2020
+ *
+ */
+
 public class MainMenu implements Printable{
 
     ArrayList<Customer> accounts;
 
+    /**
+     * default constructor
+     */
     public MainMenu(){
 
     }
 
+    /**
+     * contructor for MainMenu
+     *
+     * @param accountsIn the list of account contained in the bank
+     */
     public MainMenu(ArrayList<Customer> accountsIn){
         this.accounts = accountsIn;
 
     }
 
-
+    //CAN DELETE ONCE EVERYTHING WORKS 100% AND WE DONT NEED TO TEST ANYTHING ELSE
     public void test(){
         System.out.println(accounts.size());
         for (int i =0; i < accounts.size();i++) {
@@ -39,6 +58,7 @@ public class MainMenu implements Printable{
 
     /**
      * method to add bank manager functionality such as showing all aspects of an account
+     *
      * @param isBankManager confirms user is bank manager
      * @param acc the ArrayList of Customers
      */
@@ -192,10 +212,11 @@ public class MainMenu implements Printable{
     /**
      * a function that displays the main menu used to select and perform common banking functions such as:
      * <ul>
-     *    <li>show balance</li>
+     *    <li>inquire balance</li>
      *    <li>transfer money</li>
      *    <li>deposit money</li>
      *    <li>withdraw money</li>
+     *    <li>pay someone</li>
      *    <li>exit</li>
      * </ul>
      * @param acc The array list containing the accounts of the bank
@@ -809,6 +830,25 @@ public class MainMenu implements Printable{
         }
     }
 
+    /**
+     * this method creates a file called "transactionLog.txt" that contains user actions they've performed
+     *
+     * @param transactionType the type of transactions mirrored from the main menu options:
+     * <ul>
+     * <li>inquire balance</li>
+     * <li>transfer money</li>
+     * <li>deposit money</li>
+     * <li>withdraw money</li>
+     * <li>pay someone</li>
+     * <li>exit</li>
+     * </ul>
+     *
+     * @param userName the name of the logged into account
+     * @param otherUserName the name of a secondary account used in "pay someone"
+     * @param amount the amount of money used in the action
+     * @param fromAccount name of account a transfer/action is from
+     * @param toAccount name of account a transfer/action is to
+     */
     public static void transactionLog(String transactionType, String userName, String otherUserName, double amount, String fromAccount, String toAccount) {
 
         // using try and catch to prevent IOException error
@@ -866,10 +906,17 @@ public class MainMenu implements Printable{
             }
         }
         catch (FileNotFoundException e) {
-            System.out.println("Error");
+            System.out.println("File does not exist");
         }
 
     }
+
+
+    /**
+     * method that prints all details of a single account
+     *
+     * @param acc the account to print all details of
+     */
 
     @Override
     public void printAllFields(Customer acc) {
@@ -880,6 +927,14 @@ public class MainMenu implements Printable{
         System.out.println("Phone number: " + acc.getPhoneNumber());
         System.out.println("Email: " + acc.getEmail());
     }
+
+    /**
+     * method that prints the balance of Checking, savings, and credit of an account
+     *
+     * @param accountList the list of accounts in the bank
+     * @param i the index of the account we want from accountList
+     * @param accountType the account type
+     */
 
     @Override
     public void printBalance(ArrayList<Customer> accountList, int i, String accountType) {
@@ -894,6 +949,11 @@ public class MainMenu implements Printable{
             System.out.println("Credit $: " + accountList.get(i).getCreditAcc().getBalance());
         }
     }
+
+    /**
+     * method that prints out a welcome message for a new user
+     *
+     */
 
     @Override
     public void printWelcomeMessage() {
