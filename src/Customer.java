@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 /**
  * Customer class is child class of Person
@@ -382,7 +383,11 @@ public class Customer extends Person implements Printable{
         String dateOfBirth = "\"" + dobScanner.nextLine() + "\"";
         System.out.print("Address: ");
         String address = "\"" + addressScanner.nextLine() + "\"";
-<<<<<<< HEAD
+
+
+
+
+        System.out.println("Email:");
 
         long  phoneNumber = 0; // initilization needed to avoid privatizing variable
         try {
@@ -393,17 +398,15 @@ public class Customer extends Person implements Printable{
             System.out.println("Invalid input, not a number");
         }
 
-        System.out.println("Email:");
-=======
-        System.out.print("10-digit phone number: ");
-        long phoneNumber = userInput.nextLong();
         System.out.print("Email: ");
->>>>>>> 37be393140d1889eb6d39088ff9cce24b772d1e1
         String email = userInput.next();
         System.out.print("Password: ");
         String password = userInput.next();
-<<<<<<< HEAD
 
+
+
+
+        //savingsAcc.setStartingBalance(savingsStartingBalance); possibly redundant, ask Alfredo
         try {
             System.out.print("Savings account number: ");
             newSavings.setAccountNumber(userInput.nextInt());
@@ -419,13 +422,7 @@ public class Customer extends Person implements Printable{
         catch (InputMismatchException e){
             System.out.println("Invalid input, not a number");
         }
-        //savingsAcc.setStartingBalance(savingsStartingBalance); possibly redundant, ask Alfredo
-=======
-        System.out.print("Savings account number: ");
-        newSavings.setAccountNumber(userInput.nextInt());
-        System.out.print("Amount to deposit into savings: ");
-        newSavings.setBalance(userInput.nextDouble());
->>>>>>> 37be393140d1889eb6d39088ff9cce24b772d1e1
+
         int identificationNumber = customerArrayList.size() + 1;
 
         System.out.println("Would you like to create a Checking account? (y/n)");
