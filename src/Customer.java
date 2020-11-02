@@ -381,16 +381,36 @@ public class Customer extends Person {
         String dateOfBirth = "\"" + dobScanner.nextLine() + "\"";
         System.out.print("Address: ");
         String address = "\"" + addressScanner.nextLine() + "\"";
-        System.out.print("10-digit phone number: ");
-        long phoneNumber = userInput.nextLong();
+
+        long  phoneNumber = 0; // initilization needed to avoid privatizing variable
+        try {
+            System.out.print("10-digit phone number: ");
+            phoneNumber = userInput.nextLong();
+        }
+        catch (InputMismatchException e){
+            System.out.println("Invalid input, not a number");
+        }
+
         System.out.println("Email:");
         String email = userInput.next();
         System.out.println("Password");
         String password = userInput.next();
-        System.out.print("Savings account number: ");
-        newSavings.setAccountNumber(userInput.nextInt());
-        System.out.print("Amount to deposit into savings: ");
-        newSavings.setBalance(userInput.nextDouble());
+
+        try {
+            System.out.print("Savings account number: ");
+            newSavings.setAccountNumber(userInput.nextInt());
+        }
+        catch (InputMismatchException e){
+            System.out.print("Invalid input, not a number");
+        }
+
+        try {
+            System.out.print("Amount to deposit into savings: ");
+            newSavings.setBalance(userInput.nextDouble());
+        }
+        catch (InputMismatchException e){
+            System.out.println("Invalid input, not a number");
+        }
         //savingsAcc.setStartingBalance(savingsStartingBalance); possibly redundant, ask Alfredo
         int identificationNumber = customerArrayList.size() + 1;
 
@@ -401,11 +421,22 @@ public class Customer extends Person {
         newChecking.setStartingBalance(0);
         //newChecking.setStartingBalance(checkingStartingBalance); possibly redundant, ask Alfredo
 
-        if (createAccount.equals("y")) { 
-            System.out.print("Enter checking account number: ");
-            newChecking.setAccountNumber(userInput.nextInt());
-            System.out.print("Enter amount to deposit into checking: ");
-            newChecking.setBalance(userInput.nextDouble());
+        if (createAccount.equals("y")) {
+            try {
+                System.out.print("Enter checking account number: ");
+                newChecking.setAccountNumber(userInput.nextInt());
+            }
+            catch (InputMismatchException e){
+                System.out.println("Invalid input, not a number");
+            }
+
+            try {
+                System.out.print("Enter amount to deposit into checking: ");
+                newChecking.setBalance(userInput.nextDouble());
+            }
+            catch (InputMismatchException e){
+                System.out.println("Invalid input, not a number");
+            }
             //checkingCurrentBalance = checkingStartingBalance;
         }
 
@@ -418,8 +449,13 @@ public class Customer extends Person {
         newCredit.setCreditMax(5000);
 
         if (createAccount.equals("y")) {
-            System.out.print("Enter credit account number: ");
-            newCredit.setAccountNumber(userInput.nextInt());
+            try {
+                System.out.print("Enter credit account number: ");
+                newCredit.setAccountNumber(userInput.nextInt());
+            }
+            catch (InputMismatchException e){
+                System.out.println("Invalid input, not a number");
+            }
             System.out.print("Congratulations! You were approved for $5000");
             creditStartingBalance = 0;
         }
