@@ -1,9 +1,10 @@
 /**
- * Savings class is child class of Account and is used in Customer
- * @see Savings
+ * Savings class is child class of Account and is used in Customer.
+ * Taken from both Alfredo and Juan.
+ *  @see Savings
  * @see Customer
  *
- * Taken from both Alfredo and Juan
+ *
  *
  * @author Alfredo Rodriguez, Juan Gutierrez
  * @version 1.0, 10/27/2020

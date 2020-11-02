@@ -1,9 +1,10 @@
 /**
- * Credit class is the child class of Account and is used in Customer
+ * Credit class is the child class of Account and is used in Customer.
+ * Taken from both Alfredo and Juan
  * @see Account
  * @see Customer
  *
- * Taken from both Alfredo and Juan
+ *
  *
  * @author Alfredo Rodriguez, Juan Gutierrez
  * @version 1.0, 10/27/2020
@@ -27,6 +28,7 @@ public class Credit extends Account {
      * @param identificationNumberIn Receives ID number
      * @param accountNumberIn Receives account number @see Account
      * @param startingBalanceIn Receives starting balance @see Account
+     * @param creditMaxIn Receives the maximum credit balance
      */
     public Credit(int identificationNumberIn, int accountNumberIn, double startingBalanceIn, double creditMaxIn) {
         super(accountNumberIn, startingBalanceIn);

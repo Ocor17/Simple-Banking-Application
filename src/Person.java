@@ -1,7 +1,8 @@
 /**
  * Person class is an abstract class that has a child class called Customer.
- * @see Customer
  * Taken from Alfredo
+ * @see Customer
+ *
  *
  * @author Alfredo Rodriguez, Juan Gutierrez
  * @version 1.0 10/26/2020
@@ -34,6 +35,7 @@ public abstract class Person {
      * @param identificationNumberIn Receives ID number.
      * @param addressIn Receives address.
      * @param phoneNumberIn Receives phone number.
+     * @param emailIn Receives the email.
      */
     public Person(String firstNameIn, String lastNameIn, String dateOfBirthIn, int identificationNumberIn, String addressIn, long phoneNumberIn, String emailIn) {
         this.firstName = firstNameIn;

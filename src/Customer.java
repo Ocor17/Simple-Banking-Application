@@ -7,13 +7,14 @@ import java.util.InputMismatchException;
 /**
  * Customer class is child class of Person and implements Printable.
  * Uses Checking, Savings and Credit for accounts
+ * Taken from both Alfredo and Juan
  * @see Person
  * @see Printable
  * @see Checking
  * @see Savings
  * @see Credit
  *
- * Taken from both Alfredo and Juan
+ *
  *
  * @author Alfredo Rodriguez, Juan Gutierrez
  * @version 1.0, 10/27/2020
@@ -220,6 +221,16 @@ public class Customer extends Person implements Printable{
      * @param IDNumberIn             Receives ID number @see Person
      * @param addressIn              Receives address @see Person
      * @param phoneNumberIn          Receives phone number @see Person
+     * @param emailIn                Receives the email @see Person
+     * @param passwordIn             Receives the password
+     * @param checkingAccIn          Receives the checking account @see Checking
+     * @param savingsAccIn           Receives the savings account @see Savings
+     * @param creditAccIn            Receives the credit account @see Credit
+     *
+     * @see Person
+     * @see Checking
+     * @see Savings
+     * @see Credit
      */
     public Customer(String firstNameIn, String lastNameIn, String dateOfBirthIn, int IDNumberIn, String addressIn, long phoneNumberIn,String emailIn, String passwordIn , Checking checkingAccIn, Savings savingsAccIn, Credit creditAccIn){
 

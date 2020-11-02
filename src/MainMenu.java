@@ -46,16 +46,6 @@ public class MainMenu implements Printable{
 
     }
 
-    //CAN DELETE ONCE EVERYTHING WORKS 100% AND WE DONT NEED TO TEST ANYTHING ELSE
-    public void test(){
-        System.out.println(accounts.size());
-        for (int i =0; i < accounts.size();i++) {
-
-            System.out.println(accounts.get(i).getFirstName()+", "+accounts.get(i).getCheckingAcc().getBalance()+", "+accounts.get(i).getCheckingAcc().getStartingBalance());
-        }
-    }
-
-
     /**
      * method to add bank manager functionality such as showing all aspects of an account
      *
@@ -360,7 +350,9 @@ public class MainMenu implements Printable{
      * balance submenu to help not clutter main menu
      *
      * @param acc the customer account that we're looking for the current balance
+     * @param fromWhere the account which is balance is being checked
      */
+    //DOUBLE CHECK CODE IF RUNS AS INTENDED
     public static void balanceSubMenu(Customer acc, String fromWhere){
         Scanner sc= new Scanner(System.in);
         String selection = "";
@@ -375,8 +367,8 @@ public class MainMenu implements Printable{
             selection = sc.nextLine();
         } else {
             if (fromWhere.equals("checking")) selection = "1";
-            if (fromWhere.equals("savings")) selection = "1";
-            if (fromWhere.equals("credit")) selection = "1";
+            if (fromWhere.equals("savings")) selection = "2";
+            if (fromWhere.equals("credit")) selection = "3";
         }
 
         switch (selection) {
@@ -413,6 +405,9 @@ public class MainMenu implements Printable{
      * method to transfer money between any account available of one customer
      *
      * @param acc the customer account that we're transferring funds between
+     * @param fromWhere the account money is transferred from
+     * @param toWhere the account money is transferred to
+     * @param actionAmount the amount being transferred
      */
     public static void transferSubMenu(Customer acc, String fromWhere, String toWhere, double actionAmount){
 
@@ -569,6 +564,8 @@ public class MainMenu implements Printable{
      * method to deposit money into any of the three accounts available of one customer
      *
      * @param acc the customer account that we're depositing money into
+     * @param actionAmount the amount being deposited
+     * @param toWhere the account to be deposited in
      */
     public static void depositSubMenu(Customer acc, double actionAmount, String toWhere){
 
@@ -647,6 +644,8 @@ public class MainMenu implements Printable{
      * method to withdraw money from any available account of one customer
      *
      * @param acc the customer account that we're withdrawing from
+     * @param fromWhere the account being withdrawn from
+     * @param actionAmount the amount to be withdrawn
      */
     public static void withdrawSubMenu(Customer acc, String fromWhere, double actionAmount){
 
@@ -727,6 +726,10 @@ public class MainMenu implements Printable{
      *
      * @param currentAcc     the current account and account that will be paying
      * @param acc     the account that payer is transferring to
+     * @param fromWhere the account chosen to pay someone
+     * @param toWhere the account the to be paid into
+     * @param toUserIndex the index of the payee
+     * @param actionAmount the amount to be paid
      */
 
     public static void paySomeoneSubMenu(Customer currentAcc, ArrayList<Customer> acc, String fromWhere, String toWhere, int toUserIndex, double actionAmount){

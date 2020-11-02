@@ -5,16 +5,18 @@ import java.util.Scanner;
 
 /**
  * This is the RunBank method where the main class it at utilizes MainMenu and Customer.
+ * Class taken from both Alfredo and Juan
  * @see MainMenu
  * @see Customer
  *
- * Class taken from both Alfredo and Juan
+ *
  *
  * @author Alfredo Rodriguez, Juan Gutierrez
  * @version 1.0 10/27/2020
  * @since October 27, 2020
  */
 public class RunBank {
+
 
     public static void main(String[] args) {
 
@@ -60,6 +62,7 @@ public class RunBank {
     /**
      * This method reads a transaction action file and performs given operations
      *
+     * @param customerArrayList the list of customers of the bank
      * @param fileName receives file name
      */
     public static void transactionReader(ArrayList<Customer> customerArrayList, String fileName) {

@@ -3,8 +3,10 @@ import java.util.ArrayList;
 /**
  * Account class is an abstract class that is the parent of Checking, Savings and Credit classes.
  * It includes getters and setters as well as multiple methods that will work with the main RunBank class and its child classes.
- *
  * Taken from both Alfredo and Juan
+ * @see Checking
+ * @see Savings
+ * @see Credit
  *
  * @author Alfredo Rodriguez, Juan Gutierrez
  * @version 1.0, 10/27/2020

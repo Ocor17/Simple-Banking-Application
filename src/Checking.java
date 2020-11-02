@@ -1,9 +1,10 @@
 /**
- * Checking class is the child class of Account and is used in Customer
+ * Checking class is the child class of Account and is used in Customer.
+ * Taken from both Alfredo and Juan
  * @see Account
  * @see Customer
  *
- * Taken from both Alfredo and Juan
+ *
  *
  * @author Alfredo Rodriguez, Juan Gutierrez
  * @version 1.0, 10/27/2020
