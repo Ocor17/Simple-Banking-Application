@@ -487,10 +487,6 @@ public class Customer extends Person implements Printable{
         String address = "\"" + addressScanner.nextLine() + "\"";
 
 
-
-
-        System.out.println("Email:");
-
         long  phoneNumber = 0; // initilization needed to avoid privatizing variable
         try {
             System.out.print("10-digit phone number: ");
@@ -506,9 +502,6 @@ public class Customer extends Person implements Printable{
         String password = userInput.next();
 
 
-
-
-        //savingsAcc.setStartingBalance(savingsStartingBalance); possibly redundant, ask Alfredo
         try {
             System.out.print("Savings account number: ");
             newSavings.setAccountNumber(userInput.nextInt());
@@ -519,10 +512,12 @@ public class Customer extends Person implements Printable{
 
         try {
             System.out.print("Amount to deposit into savings: ");
-            newSavings.setBalance(userInput.nextDouble());
+            double amountInput = userInput.nextDouble();
+            customer.isAmountNegative(amountInput);
+            newSavings.setBalance(amountInput);
         }
-        catch (InputMismatchException e){
-            System.out.println("Invalid input, not a number");
+        catch (MyException e){
+            System.out.println(e.getMessage());
         }
 
         int identificationNumber = customerArrayList.size() + 1;
@@ -634,5 +629,17 @@ public class Customer extends Person implements Printable{
     @Override
     public void printWelcomeMessage() {
         System.out.println("Welcome new user!");
+    }
+
+    /**
+     * Method that gives uses MyException when a negative number is found as input
+     *
+     * @param amount user amount
+     * @throws MyException MyExeception
+     */
+    public void isAmountNegative(double amount) throws MyException {
+        if (amount < 0) {
+            throw new MyException("Amount invalid. Entering $0.00 as balance.");
+        }
     }
 }
