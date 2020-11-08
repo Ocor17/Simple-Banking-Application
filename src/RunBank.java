@@ -47,6 +47,7 @@ public class RunBank {
 
                 case "3":
                     transactionReader(accounts, "Transaction Actions.csv");
+                    break;
 
                 case "4":
                     return;
