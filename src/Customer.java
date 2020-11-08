@@ -488,38 +488,43 @@ public class Customer extends Person implements Printable{
 
 
         long  phoneNumber = 0; // initilization needed to avoid privatizing variable
-        try {
-            System.out.print("10-digit phone number: ");
-            phoneNumber = userInput.nextLong();
+        while (true) {
+            try {
+                System.out.print("10-digit phone number: ");
+                phoneNumber = userInput.nextLong();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, not a number");
+                userInput.next();
+            }
         }
-        catch (InputMismatchException e){
-            System.out.println("Invalid input, not a number");
-        }
-
         System.out.print("Email: ");
         String email = userInput.next();
         System.out.print("Password: ");
         String password = userInput.next();
 
-
-        try {
-            System.out.print("Savings account number: ");
-            newSavings.setAccountNumber(userInput.nextInt());
+        while (true) {
+            try {
+                System.out.print("Savings account number: ");
+                newSavings.setAccountNumber(userInput.nextInt());
+                break;
+            } catch (InputMismatchException e) {
+                System.out.print("Invalid input, not a number");
+                userInput.next();
+            }
         }
-        catch (InputMismatchException e){
-            System.out.print("Invalid input, not a number");
+        while (true) {
+            try {
+                System.out.print("Amount to deposit into savings: ");
+                double amountInput = userInput.nextDouble();
+                customer.isAmountNegative(amountInput);
+                newSavings.setBalance(amountInput);
+                break;
+            } catch (MyException e) {
+                System.out.println(e.getMessage());
+                userInput.next();
+            }
         }
-
-        try {
-            System.out.print("Amount to deposit into savings: ");
-            double amountInput = userInput.nextDouble();
-            customer.isAmountNegative(amountInput);
-            newSavings.setBalance(amountInput);
-        }
-        catch (MyException e){
-            System.out.println(e.getMessage());
-        }
-
         int identificationNumber = customerArrayList.size() + 1;
 
         System.out.println("Would you like to create a Checking account? (y/n)");
@@ -530,22 +535,27 @@ public class Customer extends Person implements Printable{
 
 
         if (createAccount.equals("y")) {
-            try {
-                System.out.print("Enter checking account number: ");
-                newChecking.setAccountNumber(userInput.nextInt());
+            while(true) {
+                try {
+                    System.out.print("Enter checking account number: ");
+                    newChecking.setAccountNumber(userInput.nextInt());
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input, not a number");
+                    userInput.next(); //Resets scanner to avoid infinite loop
+                }
             }
-            catch (InputMismatchException e){
-                System.out.println("Invalid input, not a number");
+            while(true) {
+                try {
+                    System.out.print("Enter amount to deposit into checking: ");
+                    newChecking.setBalance(userInput.nextDouble());
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input, not a number");
+                    userInput.next();
+                }
+                //checkingCurrentBalance = checkingStartingBalance;
             }
-
-            try {
-                System.out.print("Enter amount to deposit into checking: ");
-                newChecking.setBalance(userInput.nextDouble());
-            }
-            catch (InputMismatchException e){
-                System.out.println("Invalid input, not a number");
-            }
-            //checkingCurrentBalance = checkingStartingBalance;
         }
 
         System.out.println("Would you like to create a Credit account? (y/n)");
@@ -557,12 +567,15 @@ public class Customer extends Person implements Printable{
         newCredit.setCreditMax(5000);
 
         if (createAccount.equals("y")) {
-            try {
-                System.out.print("Enter credit account number: ");
-                newCredit.setAccountNumber(userInput.nextInt());
-            }
-            catch (InputMismatchException e){
-                System.out.println("Invalid input, not a number");
+            while (true) {
+                try {
+                    System.out.print("Enter credit account number: ");
+                    newCredit.setAccountNumber(userInput.nextInt());
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input, not a number");
+                    userInput.next();
+                }
             }
             System.out.print("Congratulations! You were approved for $5000");
             creditStartingBalance = 0;

@@ -86,23 +86,26 @@ public class MainMenu implements Printable{
                 System.out.println("3. Credit");
 
                 int accountTypeInput = 0; // variables must be initialized outside try catch block
-                try {
-                    accountTypeInput = input.nextInt();
+                while(true) {
+                    try {
+                        accountTypeInput = input.nextInt();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input, not a number");
+                        input.next();   // Resets scanner to avoid infinite loop
+                    }
                 }
-                catch (InputMismatchException e ){
-                    System.out.println("Invalid input, not a number");
-                }
-
                 int accountNumberInput =0;// variables must be initialized outside try catch block
-
-                try {
-                    System.out.println("What is the account number?");
-                    accountNumberInput = input.nextInt();
+                while(true) {
+                    try {
+                        System.out.println("What is the account number?");
+                        accountNumberInput = input.nextInt();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input, not a number");
+                        input.next();
+                    }
                 }
-                catch (InputMismatchException e){
-                    System.out.println("Invalid input, not a number");
-                }
-
                 if (accountTypeInput == 1) {
                     int userAccountIndex = managerObject.searchAccount(acc, accountNumberInput);
                     try {
@@ -177,17 +180,26 @@ public class MainMenu implements Printable{
                     manager.createBankStatement(acc, userAccountIndex, acc.get(userAccountIndex).getCheckingAcc().getBalance(), acc.get(userAccountIndex).getSavingsAcc().getBalance(), acc.get(userAccountIndex).getCreditAcc().getBalance());
                 }
             } else if (loginSelection.equals("5")) {
-                try {
-                    System.out.print("Enter customer's identification number: ");
-                    payerID = input.nextInt();
-                    for (int i = 0; i < acc.size(); i++) {
-                        if (acc.get(i).getIdentificationNumber() == payerID || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))) {
-                            payerIndex = i;
+
+                while (true) {
+                    try {
+                        System.out.print("Enter customer's identification number: ");
+                        payerID = input.nextInt();
+                        for (int i = 0; i < acc.size(); i++) {
+                            if (acc.get(i).getIdentificationNumber() == payerID || (acc.get(i).getFirstName().equals(firstName) && acc.get(i).getLastName().equals(lastName))) {
+                                payerIndex = i;
+                            }
                         }
+                        menu.printAllFields(acc.get(payerIndex));
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input, not a number");
+                        input.next();
+
+                    } catch (Exception e) {
+                        System.out.println("Incorrect value");
+
                     }
-                    menu.printAllFields(acc.get(payerIndex));
-                } catch (Exception e) {
-                    System.out.println("Incorrect value");
                 }
             } else {
                 System.out.println("Goodbye");
@@ -213,15 +225,15 @@ public class MainMenu implements Printable{
      */
     public static void mainMenu(ArrayList<Customer> acc){
 
-        /**
-         * @param input scanner class initilization to take user input
-         * @param selection used to make a selection in the main menu
-         * @param firstName used to take in the accounts first name for login
-         * @param lastName used to take in the accounts last name for login
-         * @param payerID used to take in the accounts ID number for login
-         * @param payerIndex used to gain the array index for the current account
-         * @param isBankManager checks if user is the bank manager
-         * @param loginSelection hold the current selection for the menu
+        /*
+         * input scanner class initilization to take user input
+         * selection used to make a selection in the main menu
+         * firstName used to take in the accounts first name for login
+         * lastName used to take in the accounts last name for login
+         * payerID used to take in the accounts ID number for login
+         * payerIndex used to gain the array index for the current account
+         * isBankManager checks if user is the bank manager
+         * loginSelection hold the current selection for the menu
          */
         Scanner input = new Scanner(System.in);
 
@@ -257,12 +269,15 @@ public class MainMenu implements Printable{
         loginSelection = input.next();
 
         if (loginSelection.equals("1")){
-            try {
-                System.out.println("Enter ID number in full e.g 00:");
-                payerID = input.nextInt();
-            }
-            catch (InputMismatchException e){
-                System.out.println("Invalid input, not a number");
+            while(true) {
+                try {
+                    System.out.println("Enter ID number in full e.g 00:");
+                    payerID = input.nextInt();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input, not a number");
+                    input.next();
+                }
             }
         }
         else if (loginSelection.equals("2")){
@@ -446,13 +461,15 @@ public class MainMenu implements Printable{
             if (secondAccount.equals("4")) {
                 return;
             }
-
-            try {
-                System.out.println("enter amount to transfer:");
-                amount = input.nextDouble();
-            }
-            catch (InputMismatchException e){
-                System.out.println("Invalid input, not a number");
+            while(true) {
+                try {
+                    System.out.println("enter amount to transfer:");
+                    amount = input.nextDouble();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input, not a number");
+                    input.next();
+                }
             }
         }
 
@@ -589,12 +606,16 @@ public class MainMenu implements Printable{
 
 
                 while (amount <= 0) {
-                    System.out.println("enter amount to deposit that is 0 or greater:");
-                    try {
-                        amount = sc.nextDouble(); //catches user trying to input non-numbers
-                    } catch (InputMismatchException e) {
-                        System.out.println("Invalid input, please input a number");
-                    }
+                   while (true) {
+                       try {
+                           System.out.println("enter amount to deposit that is 0 or greater:");
+                           amount = sc.nextDouble(); //catches user trying to input non-numbers
+                           break;
+                       } catch (InputMismatchException e) {
+                           System.out.println("Invalid input, please input a number");
+                           sc.next();
+                       }
+                   }
                 }
             }
         }
@@ -677,6 +698,7 @@ public class MainMenu implements Printable{
                         }
                     } catch (InputMismatchException e) {
                         System.out.println("Invalid input, please input a number");
+                        sc.next();
                     }
                 }
             }
@@ -791,10 +813,14 @@ public class MainMenu implements Printable{
 
             System.out.println("enter amount to pay");
 
-            try {
-                amount = sc.nextDouble();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input, please input a number");
+            while (true) {
+                try {
+                    amount = sc.nextDouble();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input, please input a number");
+                    sc.next();
+                }
             }
         }
 
