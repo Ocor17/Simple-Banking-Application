@@ -522,7 +522,11 @@ public class Customer extends Person implements Printable{
                 break;
             } catch (MyException e) {
                 System.out.println(e.getMessage());
+            }
+            catch (InputMismatchException e){
+                System.out.println("Invalid input, not a number");
                 userInput.next();
+
             }
         }
         int identificationNumber = customerArrayList.size() + 1;
@@ -577,7 +581,7 @@ public class Customer extends Person implements Printable{
                     userInput.next();
                 }
             }
-            System.out.print("Congratulations! You were approved for $5000");
+            System.out.println("Congratulations! You were approved for $5000");
             creditStartingBalance = 0;
         }
 
