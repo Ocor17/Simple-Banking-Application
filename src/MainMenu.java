@@ -763,7 +763,7 @@ public class MainMenu implements Printable{
 
         Scanner sc = new Scanner(System.in);
 
-        String payeeID = "";
+        int payeeID = 0;
         String payeeSelection = toWhere;
         String payeeFirstName = "";
         String payeeLastName = "";
@@ -787,13 +787,13 @@ public class MainMenu implements Printable{
 
             if (payeeSelection.equals("1")) {
                 System.out.println("Enter ID number in full e.g 00:");
-                payeeID = sc.next();
+                payeeID = sc.nextInt();
             } else if (payeeSelection.equals("2")) {
 
-                System.out.println("Enter first name\n");
+                System.out.println("Enter first name");
                 payeeFirstName = sc.next();
 
-                System.out.println("Enter last name\n");
+                System.out.println("Enter last name");
                 payeeLastName = sc.next();
             } else {
                 System.out.println("Goodbye");
@@ -801,7 +801,7 @@ public class MainMenu implements Printable{
             }
 
             for (int i = 0; i < acc.size(); i++) {
-                if (acc.get(i).getIdentificationNumber() == Integer.parseInt(payeeID) || (acc.get(i).getFirstName().equals(payeeFirstName) && acc.get(i).getLastName().equals(payeeLastName))) {
+                if (acc.get(i).getIdentificationNumber() == payeeID || (acc.get(i).getFirstName().equals(payeeFirstName) && acc.get(i).getLastName().equals(payeeLastName))) {
                     payeeIndex = i;
                 }
             }
