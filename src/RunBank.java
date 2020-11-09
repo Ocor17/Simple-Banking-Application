@@ -50,6 +50,7 @@ public class RunBank {
                     break;
 
                 case "4":
+                    mainMenu.newBalanceSheet(accounts);
                     return;
 
                 default:

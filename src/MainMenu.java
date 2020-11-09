@@ -1,7 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -928,7 +925,7 @@ public class MainMenu implements Printable{
      */
     public static void newBalanceSheet(ArrayList<Customer> customerArrayList) {
 
-        try (PrintWriter writer = new PrintWriter("New Balance Sheet.csv")) {
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream("New Balance Sheet.csv",false))) {
             writer.println("First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Credit Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance, Password, Email,Credit Max");
             for (int i = 0; i < customerArrayList.size(); i++) {
                 writer.print(customerArrayList.get(i).getFirstName() + ",");
