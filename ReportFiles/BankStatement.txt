@@ -1,0 +1,24 @@
+Miner Bank                                                    Checking Account Number: 1060
+                                                              Savings Account Number:  2060
+                                                              Credit Account Number:   3060
+                                                              Statement Begin Date: 11-08-2020
+                                                              Statement End Date: 11-08-2020
+Juan Gutierrez
+"500 W. University Ave, El Paso, TX 79968"
+
+
+___________________________________ Transactions ____________________________________
+Juan Gutierrez deposited $5000.0 into their  account.
+Juan Gutierrez payed $1000.0 to Daniel Mejia.
+Juan Gutierrez deposited $5000.0 into their  account.
+Juan Gutierrez payed $1000.0 to Daniel Mejia.
+Juan Gutierrez deposited $5000.0 into their  account.
+Juan Gutierrez payed $1000.0 to Daniel Mejia.
+Juan Gutierrez deposited $5000.0 into their  account.
+Juan Gutierrez payed $1000.0 to Daniel Mejia.
+_____________________________________________________________________________________
+Starting Balance                                                       Ending Balance
+
+Checking: $5296.11                                                     Checking: $5296.11
+Savings:  $3349.49                                                     Savings:  $3349.49
+Credit:   $-1561.53                                                    Credit:   $-1561.53
