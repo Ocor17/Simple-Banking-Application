@@ -822,9 +822,18 @@ public class MainMenu implements Printable{
                     sc.next();
                 }
             }
+            if (amount < 0) {
+                System.out.println("Incorrect value. Returning to main menu");
+                return;
+            }
         }
 
         if (payerSelection.equals("1")){
+
+            if (currentAcc.getCheckingAcc().getBalance() - amount < 0) {
+                System.out.println("Insufficient funds in savings account. Returning to main menu.");
+                return;
+            }
 
             assert currentAcc != null;
             currentAcc.getCheckingAcc().setBalance(currentAcc.getCheckingAcc().getBalance()-amount);//set balance for payer
@@ -836,6 +845,11 @@ public class MainMenu implements Printable{
             transactionLog("paySomeone", currentAcc.getFirstName() + " " + currentAcc.getLastName(), acc.get(payeeIndex).getFirstName() + " " + acc.get(payeeIndex).getLastName(), amount, "checking", "checking");
         }
         else if (payerSelection.equals("2")){
+
+            if (currentAcc.getSavingsAcc().getBalance() - amount < 0) {
+                System.out.println("Insufficient funds in checking account. Returning to main menu.");
+                return;
+            }
 
             assert currentAcc != null;
             currentAcc.getSavingsAcc().setBalance(currentAcc.getSavingsAcc().getBalance()-amount);//set balance for payer
