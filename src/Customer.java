@@ -476,6 +476,20 @@ public class Customer extends Person implements Printable{
 
         customer.printWelcomeMessage();
 
+        /*
+        Code snippet below gets last account to figure out what to set new account IDs too
+         */
+        int lastAccountID = -1;
+        Customer lastCustomer = new Customer();
+        for(int i=0; i<customerArrayList.size(); i++){
+
+            if(customerArrayList.get(i).getIdentificationNumber() > lastAccountID){
+                lastAccountID = customerArrayList.get(i).getIdentificationNumber();
+                lastCustomer = customerArrayList.get(i);
+            }
+
+        }
+
         System.out.println("Please include all fields");
         System.out.print("First name: ");
         String firstName = userInput.next();
@@ -505,8 +519,9 @@ public class Customer extends Person implements Printable{
 
         while (true) {
             try {
-                System.out.print("Savings account number: ");
-                newSavings.setAccountNumber(userInput.nextInt());
+
+                newSavings.setAccountNumber(lastCustomer.getSavingsNum()+1);
+                System.out.println("Savings account number: "+ newSavings.getAccountNumber());
                 break;
             } catch (InputMismatchException e) {
                 System.out.print("Invalid input, not a number");
@@ -529,7 +544,7 @@ public class Customer extends Person implements Printable{
 
             }
         }
-        int identificationNumber = customerArrayList.size() + 1;
+        int identificationNumber = lastCustomer.getIdentificationNumber()+1;
 
         System.out.println("Would you like to create a Checking account? (y/n)");
         String createAccount = userInput.next().toLowerCase();
@@ -541,8 +556,9 @@ public class Customer extends Person implements Printable{
         if (createAccount.equals("y")) {
             while(true) {
                 try {
-                    System.out.print("Enter checking account number: ");
-                    newChecking.setAccountNumber(userInput.nextInt());
+
+                    newChecking.setAccountNumber(lastCustomer.getCheckingNum()+1);
+                    System.out.println("Enter checking account number: "+newChecking.getAccountNumber());
                     break;
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input, not a number");
@@ -573,8 +589,9 @@ public class Customer extends Person implements Printable{
         if (createAccount.equals("y")) {
             while (true) {
                 try {
-                    System.out.print("Enter credit account number: ");
-                    newCredit.setAccountNumber(userInput.nextInt());
+
+                    newCredit.setAccountNumber(lastCustomer.getCreditAcc().getAccountNumber()+1);
+                    System.out.println("Enter credit account number: "+newCredit.getAccountNumber());
                     break;
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input, not a number");
