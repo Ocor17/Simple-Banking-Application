@@ -385,21 +385,24 @@ public class MainMenu implements Printable{
 
         switch (selection) {
             case "1":
-                System.out.println("amount in Checking account: $" + acc.getCheckingAcc().getBalance());
+                System.out.printf("Amount in Checking account: $%.2f", acc.getCheckingAcc().getBalance());
+                System.out.println();
 
                 transactionLog("inquire balance", acc.getFirstName() + " " + acc.getLastName(), "", 0, "checking", "");
 
                 break;
 
             case "2":
-                System.out.println("amount in Savings account: $" + acc.getSavingsAcc().getBalance());
+                System.out.printf("Amount in Savings account: $%.2f", acc.getSavingsAcc().getBalance());
+                System.out.println();
 
                 transactionLog("inquire balance", acc.getFirstName() + " " + acc.getLastName(), "", 0, "savings", "");
 
                 break;
 
             case "3":
-                System.out.println("amount in Credit account: $" + acc.getCreditAcc().getBalance());
+                System.out.printf("Amount in Credit account: $%.2f", acc.getCreditAcc().getBalance());
+                System.out.println();
 
                 transactionLog("inquire balance", acc.getFirstName() + " " + acc.getLastName(), "", 0, "credit", "");
 
@@ -483,7 +486,8 @@ public class MainMenu implements Printable{
                     if (amount < acc.getCheckingAcc().getBalance()) {
                         acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance() - amount);
                         acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() + amount);
-                        System.out.println("$" + amount + " was transferred from Checking to Savings");
+                        System.out.printf("$%.2f was transferred from Checking to Savings", amount);
+                        System.out.println();
 
                         transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "checking", "savings");
 
@@ -495,7 +499,8 @@ public class MainMenu implements Printable{
                     if (amount < acc.getCheckingAcc().getBalance() && amount < Math.abs(acc.getCreditAcc().getBalance())) {
                         acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance() - amount);
                         acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() + amount);
-                        System.out.println("$" + amount + " was transferred from Checking to Credit");
+                        System.out.printf("$%.2f was transferred from Checking to Credit", amount);
+                        System.out.println();
 
                         transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "checking", "credit");
 
@@ -515,7 +520,8 @@ public class MainMenu implements Printable{
                     if (amount < acc.getSavingsAcc().getBalance()) {
                         acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() - amount);
                         acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance() + amount);
-                        System.out.println("$" + amount + " was transferred from Savings to Checking");
+                        System.out.printf("$%.2f was transferred from Savings to Checking", amount);
+                        System.out.println();
 
                         transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "savings", "checking");
 
@@ -531,7 +537,8 @@ public class MainMenu implements Printable{
                     if (amount < acc.getSavingsAcc().getBalance() && amount < Math.abs(acc.getCreditAcc().getBalance())) {
                         acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() - amount);
                         acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() + amount);
-                        System.out.println("$" + amount + " was transferred from Savings to Credit");
+                        System.out.printf("$%.2f was transferred from Savings to Credit", amount);
+                        System.out.println();
 
                         transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "savings", "credit");
 
@@ -550,7 +557,8 @@ public class MainMenu implements Printable{
                     acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() - amount);
                     acc.getCreditAcc().setBalance(acc.getCheckingAcc().getBalance() + amount);
 
-                    System.out.println("$" + amount + " was transferred from Credit to Checking");
+                    System.out.printf("$%.2f was transferred from Credit to Checking", amount);
+                    System.out.println();
 
                     transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "credit", "checking");
 
@@ -559,7 +567,8 @@ public class MainMenu implements Printable{
                     acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() - amount);
                     acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() + amount);
 
-                    System.out.println("$" + amount + " was transferred from Credit to Savings");
+                    System.out.printf("$%.2f was transferred from Credit to Savings", amount);
+                    System.out.println();
 
                     transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "credit", "savings");
 
@@ -620,8 +629,8 @@ public class MainMenu implements Printable{
         switch (selection) {
             case "1":
                 acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance() + amount);
-                System.out.println("Succesful deposit of $" + amount +
-                        "\nnew balance is: " + acc.getCheckingAcc().getBalance());
+                System.out.printf("Successful deposit of $%.2f\nNew balance is: $%.2f", amount, acc.getCheckingAcc().getBalance());
+                System.out.println();
 
                 transactionLog("deposit", acc.getFirstName() + " " + acc.getLastName(), "", amount, "", "checking");
 
@@ -630,8 +639,8 @@ public class MainMenu implements Printable{
             case "2":
 
                 acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() + amount);
-                System.out.println("amount in Savings account: $" + amount +
-                        "\nnew balance is: " + acc.getSavingsAcc().getBalance());
+                System.out.printf("Successful deposit of $%.2f\nNew balance is: $%.2f", amount, acc.getSavingsAcc().getBalance());
+                System.out.println();
 
                 transactionLog("deposit", acc.getFirstName() + " " + acc.getLastName(), "", amount, "", "savings");
 
@@ -643,8 +652,8 @@ public class MainMenu implements Printable{
                     System.out.println("Cannot deposit more than what is owed, end balance at most must be 0");
                 } else {
                     acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() + amount);
-                    System.out.println("amount in Credit account: $" + amount +
-                            "\nnew balance is: " + acc.getCreditAcc().getBalance());
+                    System.out.printf("Successful deposit of $%.2f\nNew balance is: $%.2f", amount, acc.getCreditAcc().getBalance());
+                    System.out.println();
 
                     transactionLog("deposit", acc.getFirstName() + " " + acc.getLastName(), "", amount, "", "credit");
 
@@ -709,7 +718,8 @@ public class MainMenu implements Printable{
                 }
                 else {
                     acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance()-amount);
-                    System.out.println("Withdrew $"+amount+" from checking account, new balance: $" + acc.getCheckingAcc().getBalance());
+                    System.out.printf("Withdrew $%.2f from checking account.\nNew balance: $%.2f", amount, acc.getCheckingAcc().getBalance());
+                    System.out.println();
 
                     transactionLog("withdraw", acc.getFirstName() + " " + acc.getLastName(), "", amount, "checking", "");
 
@@ -724,7 +734,8 @@ public class MainMenu implements Printable{
                 }
                 else {
                     acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance()-amount);
-                    System.out.println("Withdrew $"+amount+" from Savings account, new balance: $" + acc.getSavingsAcc().getBalance());
+                    System.out.printf("Withdrew $%.2f from Savings account.\nNew balance: $%.2f", amount, acc.getSavingsAcc().getBalance());
+                    System.out.println();
 
                     transactionLog("withdraw", acc.getFirstName() + " " + acc.getLastName(), "", amount, "savings", "");
 
@@ -808,7 +819,7 @@ public class MainMenu implements Printable{
                     "2. Savings");
             toAccount = sc.next();
 
-            System.out.println("enter amount to pay");
+            System.out.print("Enter amount to pay: ");
 
             while (true) {
                 try {
@@ -836,7 +847,9 @@ public class MainMenu implements Printable{
             currentAcc.getCheckingAcc().setBalance(currentAcc.getCheckingAcc().getBalance()-amount);//set balance for payer
 
 
-            System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+amount+
+            String result = String.format("%.2f", amount);
+
+            System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+result+
                     " to "+acc.get(payeeIndex).getFirstName()+" "+acc.get(payeeIndex).getLastName());
 
             transactionLog("paySomeone", currentAcc.getFirstName() + " " + currentAcc.getLastName(), acc.get(payeeIndex).getFirstName() + " " + acc.get(payeeIndex).getLastName(), amount, "checking", "checking");
@@ -851,7 +864,9 @@ public class MainMenu implements Printable{
             assert currentAcc != null;
             currentAcc.getSavingsAcc().setBalance(currentAcc.getSavingsAcc().getBalance()-amount);//set balance for payer
 
-            System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+amount+
+            String result = String.format("%.2f", amount);
+
+            System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+result+
                     " to "+acc.get(payeeIndex).getFirstName()+" "+acc.get(payeeIndex).getLastName());
 
             transactionLog("paySomeone", currentAcc.getFirstName() + " " + currentAcc.getLastName(), acc.get(payeeIndex).getFirstName() + " " + acc.get(payeeIndex).getLastName(), amount, "savings", "checking");
@@ -891,6 +906,7 @@ public class MainMenu implements Printable{
      */
     public static void transactionLog(String transactionType, String userName, String otherUserName, double amount, String fromAccount, String toAccount) {
 
+        String result = String.format("%.2f", amount);
         // using try and catch to prevent IOException error
         // file will be created if it does not exist, otherwise it will append information
         // adding if statements that will write different info depending on transaction types
@@ -900,16 +916,16 @@ public class MainMenu implements Printable{
                 transLogWriter.write(userName + " inquired his/her " + fromAccount + " balance.\n");
             }
             if (transactionType.equals("paySomeone")) {
-                transLogWriter.write(userName + " payed $" + amount + " to " + otherUserName + ".\n");
+                transLogWriter.write(userName + " payed $" + result + " to " + otherUserName + ".\n");
             }
             if (transactionType.equals("deposit")) {
-                transLogWriter.write(userName + " deposited $" + amount + " into their " + fromAccount + " account.\n");
+                transLogWriter.write(userName + " deposited $" + result + " into their " + fromAccount + " account.\n");
             }
             if (transactionType.equals("transfer")) {
-                transLogWriter.write(userName + " transferred $" + amount + " from their " + fromAccount + " account to their " + toAccount + ".\n");
+                transLogWriter.write(userName + " transferred $" + result + " from their " + fromAccount + " account to their " + toAccount + ".\n");
             }
             if (transactionType.equals("withdraw")) {
-                transLogWriter.write(userName + " withdrew $" + amount + " from their " + fromAccount + " account.\n");
+                transLogWriter.write(userName + " withdrew $" + result + " from their " + fromAccount + " account.\n");
             }
             transLogWriter.close();
         }
@@ -980,13 +996,16 @@ public class MainMenu implements Printable{
     public void printBalance(ArrayList<Customer> accountList, int i, String accountType) {
 
         if (accountType.equals("checking")) {
-            System.out.println("Checking $: " + accountList.get(i).getCheckingAcc().getBalance());
+            System.out.printf("Checking $%.2f", accountList.get(i).getCheckingAcc().getBalance());
+            System.out.println();
         }
         if (accountType.equals("savings")) {
-            System.out.println("Savings $: " + accountList.get(i).getSavingsAcc().getBalance());
+            System.out.printf("Savings $%.2f", accountList.get(i).getSavingsAcc().getBalance());
+            System.out.println();
         }
         if (accountType.equals("credit")) {
-            System.out.println("Credit $: " + accountList.get(i).getCreditAcc().getBalance());
+            System.out.printf("Credit $%.2f", accountList.get(i).getCreditAcc().getBalance());
+            System.out.println();
         }
     }
 
