@@ -31,9 +31,10 @@ public class RunBank {
         while (true) {
             System.out.println("What would you like to do\n" +
                     "1. create account\n" +
-                    "2. continue\n" +
-                    "3. Transaction Reader\n" +
-                    "4. exit");
+                    "2. customer login\n" +
+                    "3. bank manager\n"+
+                    "4. Transaction Reader\n" +
+                    "5. exit");
             firstSelection = input.next();
 
             switch (firstSelection){
@@ -46,10 +47,14 @@ public class RunBank {
                     break;
 
                 case "3":
-                    transactionReader(accounts, "Transaction Actions.csv");
+                    mainMenu.bankManager(accounts);
                     break;
 
                 case "4":
+                    transactionReader(accounts, "Transaction Actions.csv");
+                    break;
+
+                case "5":
                     mainMenu.newBalanceSheet(accounts);
                     return;
 

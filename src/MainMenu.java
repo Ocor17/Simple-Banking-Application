@@ -51,7 +51,7 @@ public class MainMenu implements Printable{
      */
 
 
-    public static void bankManager(String isBankManager, ArrayList<Customer> acc){
+    public static void bankManager(ArrayList<Customer> acc){
 
         Scanner input = new Scanner(System.in);
 
@@ -239,24 +239,13 @@ public class MainMenu implements Printable{
         String lastName ="";
         int payerID = -1;
         int payerIndex = -1;
-        String isBankManager;
+
         String loginSelection;
         String password;
         MainMenu menu = new MainMenu();
 
         menu.printWelcomeMessage();
 
-        System.out.println("Are you a Bank Manager? Y/N");
-        isBankManager = input.next();
-
-        if(isBankManager.toLowerCase().equals("y")){
-            bankManager(isBankManager, acc);
-            return;
-
-        }
-        else {
-            System.out.println("Proceed to user login");
-        }
 
         System.out.println("choose how to login by entering 1 or 2:\n"+
                 "1. ID number e.g 00\n"+
