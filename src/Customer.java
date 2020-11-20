@@ -204,6 +204,18 @@ public class Customer extends Person implements Printable{
 
     }
 
+    public boolean getCheckingExists(){
+        return checkingAcc.getExists();
+    }
+
+    public boolean getSavingsExists(){
+        return savingsAcc.getExists();
+    }
+
+    public boolean getCreditExists(){
+        return creditAcc.getExists();
+    }
+
 
     /**
      * This is the default constructor
@@ -238,6 +250,56 @@ public class Customer extends Person implements Printable{
 
         this.password = passwordIn;
         this.checkingAcc = checkingAccIn;
+        this.savingsAcc = savingsAccIn;
+        this.creditAcc = creditAccIn;
+
+    }
+
+    /**
+     *
+     * @param firstNameIn            Receives first name @see Person
+     * @param lastNameIn             Receives last name @see Person
+     * @param dateOfBirthIn          Receives date of birth @see Person
+     * @param IDNumberIn             Receives ID number @see Person
+     * @param addressIn              Receives address @see Person
+     * @param phoneNumberIn          Receives phone number @see Person
+     * @param emailIn                Receives the email @see Person
+     * @param passwordIn             Receives the password
+     * @param checkingAccIn          Receives the checking account @see Checking
+     * @param savingsAccIn           Receives the savings account @see Savings
+     *
+     */
+
+    public Customer(String firstNameIn, String lastNameIn, String dateOfBirthIn, int IDNumberIn, String addressIn, long phoneNumberIn,String emailIn, String passwordIn , Checking checkingAccIn, Savings savingsAccIn){
+
+        super(firstNameIn,lastNameIn,dateOfBirthIn,IDNumberIn,addressIn,phoneNumberIn, emailIn);
+
+        this.password = passwordIn;
+        this.checkingAcc = checkingAccIn;
+        this.savingsAcc = savingsAccIn;
+
+    }
+
+    /**
+     *
+     * @param firstNameIn            Receives first name @see Person
+     * @param lastNameIn             Receives last name @see Person
+     * @param dateOfBirthIn          Receives date of birth @see Person
+     * @param IDNumberIn             Receives ID number @see Person
+     * @param addressIn              Receives address @see Person
+     * @param phoneNumberIn          Receives phone number @see Person
+     * @param emailIn                Receives the email @see Person
+     * @param passwordIn             Receives the password
+     * @param savingsAccIn           Receives the savings account @see Savings
+     * @param creditAccIn            Receives the credit account @see Credit
+     *
+     */
+
+    public Customer(String firstNameIn, String lastNameIn, String dateOfBirthIn, int IDNumberIn, String addressIn, long phoneNumberIn,String emailIn, String passwordIn ,Savings savingsAccIn, Credit creditAccIn){
+
+        super(firstNameIn,lastNameIn,dateOfBirthIn,IDNumberIn,addressIn,phoneNumberIn, emailIn);
+
+        this.password = passwordIn;
         this.savingsAcc = savingsAccIn;
         this.creditAcc = creditAccIn;
 
@@ -363,6 +425,10 @@ public class Customer extends Person implements Printable{
             Savings savingsAcc = new Savings();
             Credit creditAcc = new Credit();
 
+            checkingAcc.setExists(true);
+            savingsAcc.setExists(true);
+            creditAcc.setExists(true);
+
             currentCustomer =1;
             Customer customerAcc = new Customer();
 
@@ -441,7 +507,7 @@ public class Customer extends Person implements Printable{
                     customerAcc.setPassword(current);
                 }
                 else{
-                    System.out.println("YOU SHOULD NOT SEE THIS SOMETHING HAS GONE WRONG WITH COUNTER");
+                    System.out.println("Error in counter, number of fields changed?");
                 }
 
                 currentCustomer++;
@@ -452,7 +518,6 @@ public class Customer extends Person implements Printable{
         }
 
         sc.close();
-        //System.out.println(accounts.size());
         return accounts;
 
     }
@@ -520,6 +585,7 @@ public class Customer extends Person implements Printable{
         while (true) {
             try {
 
+                newSavings.setExists(true);
                 newSavings.setAccountNumber(lastCustomer.getSavingsNum()+1);
                 System.out.println("Savings account number: "+ newSavings.getAccountNumber());
                 break;
@@ -554,6 +620,7 @@ public class Customer extends Person implements Printable{
 
 
         if (createAccount.equals("y")) {
+            newChecking.setExists(true);
             while(true) {
                 try {
 
@@ -577,6 +644,9 @@ public class Customer extends Person implements Printable{
                 //checkingCurrentBalance = checkingStartingBalance;
             }
         }
+        else{
+            newChecking.setExists(false);
+        }
 
         System.out.println("Would you like to create a Credit account? (y/n)");
         createAccount = userInput.next().toLowerCase();
@@ -587,6 +657,7 @@ public class Customer extends Person implements Printable{
         newCredit.setCreditMax(5000);
 
         if (createAccount.equals("y")) {
+            newCredit.setExists(true);
             while (true) {
                 try {
 
@@ -600,6 +671,9 @@ public class Customer extends Person implements Printable{
             }
             System.out.println("Congratulations! You were approved for $5000");
             creditStartingBalance = 0;
+        }
+        else{
+            newCredit.setExists(false);
         }
 
         Customer customerInfo = new Customer(firstName, lastName, dateOfBirth, identificationNumber, address, phoneNumber, email, password, newChecking,newSavings,newCredit);

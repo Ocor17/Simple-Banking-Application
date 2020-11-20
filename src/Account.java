@@ -19,11 +19,13 @@ import java.util.ArrayList;
     private int accountNumber;
     private double startingBalance = Double.NaN;
     private double balance;
+    private boolean exists = true;
 
     /**
      * This is the default constructor
      */
     public Account() {
+
     }
 
     /**
@@ -33,9 +35,11 @@ import java.util.ArrayList;
      * @param startingBalanceIn Either Checking, Savings or Credit starting balance.
      */
     public Account(int accountNumberIn, double startingBalanceIn) {
+        this.exists = true;
         this.accountNumber = accountNumberIn;
         this.startingBalance = startingBalanceIn;
         this.balance = startingBalanceIn;
+
     }
 
     /**
@@ -98,6 +102,14 @@ import java.util.ArrayList;
         this.balance = balanceIn;
     }
 
+    public boolean getExists(){
+        return this.exists;
+    }
+
+    public void setExists(boolean existsIn){
+        this.exists = existsIn;
+    }
+
     /**
      *  searches for accounts based on account number
      *
@@ -118,5 +130,6 @@ import java.util.ArrayList;
 
         return i;
     }
+
 
 }
