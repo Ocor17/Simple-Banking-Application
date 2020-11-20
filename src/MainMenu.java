@@ -46,7 +46,6 @@ public class MainMenu implements Printable{
     /**
      * method to add bank manager functionality such as showing all aspects of an account
      *
-     * @param isBankManager confirms user is bank manager
      * @param acc the ArrayList of Customers
      */
 
@@ -72,7 +71,7 @@ public class MainMenu implements Printable{
                     "3. Inquire all accounts\n" +
                     "4. Print bank statement\n" +
                     "5. Print a customer's personal information\n" +
-                    "Press any other key to exit completely");
+                    "6. Exit");
 
             loginSelection = input.next();
 
@@ -198,9 +197,12 @@ public class MainMenu implements Printable{
 
                     }
                 }
-            } else {
+            } else if(loginSelection.equals("6")) {
                 System.out.println("Goodbye");
                 return;
+            }
+            else {
+                System.out.println("Invalid input");
             }
 
         }
@@ -245,38 +247,49 @@ public class MainMenu implements Printable{
         MainMenu menu = new MainMenu();
 
         menu.printWelcomeMessage();
+        boolean isValidOption = false;
 
+        while(!isValidOption) {
+            System.out.println("choose how to login by entering 1 or 2:\n" +
+                    "1. ID number e.g 00\n" +
+                    "2. First name and last name\n" +
+                    "3. Exit");
 
-        System.out.println("choose how to login by entering 1 or 2:\n"+
-                "1. ID number e.g 00\n"+
-                "2. First name and last name\n"+
-                "Press any other key to exit completely");
+            loginSelection = input.next();
+            switch (loginSelection) {
+                case "1":
+                    while (true) {
+                        try {
+                            System.out.println("Enter ID number in full e.g 00:");
+                            payerID = input.nextInt();
+                            isValidOption = true;
 
-        loginSelection = input.next();
-
-        if (loginSelection.equals("1")){
-            while(true) {
-                try {
-                    System.out.println("Enter ID number in full e.g 00:");
-                    payerID = input.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input, not a number");
+                            input.next();
+                        }
+                        break;
+                    }
                     break;
-                } catch (InputMismatchException e) {
-                    System.out.println("Invalid input, not a number");
-                    input.next();
-                }
+                case "2":
+
+                    System.out.println("Enter first name");
+                    firstName = input.next();
+
+                    System.out.println("Enter last name");
+                    lastName = input.next();
+                    isValidOption = true;
+                    break;
+
+                case "3":
+                    System.out.println("Goodbye");
+                    return;
+
+
+                default:
+                    System.out.println("invalid input!");
             }
-        }
-        else if (loginSelection.equals("2")){
 
-            System.out.println("Enter first name");
-            firstName = input.next();
-
-            System.out.println("Enter last name");
-            lastName = input.next();
-        }
-        else {
-            System.out.println("Goodbye");
-            return;
         }
 
         //System.out.println(payerID+" "+firstName+" "+lastName);
@@ -301,6 +314,7 @@ public class MainMenu implements Printable{
             System.out.println("Wrong password! Exiting!");
             return;
         }
+
 
         while (true) {
             System.out.println("Select what you want to do by typing only the number\n" +
