@@ -46,12 +46,11 @@ public class MainMenu implements Printable{
     /**
      * method to add bank manager functionality such as showing all aspects of an account
      *
-     * @param isBankManager confirms user is bank manager
      * @param acc the ArrayList of Customers
      */
 
 
-    public static void bankManager(String isBankManager, ArrayList<Customer> acc){
+    public static void bankManager(ArrayList<Customer> acc){
 
         Scanner input = new Scanner(System.in);
 
@@ -72,7 +71,7 @@ public class MainMenu implements Printable{
                     "3. Inquire all accounts\n" +
                     "4. Print bank statement\n" +
                     "5. Print a customer's personal information\n" +
-                    "Press any other key to exit completely");
+                    "6. Exit");
 
             loginSelection = input.next();
 
@@ -105,6 +104,7 @@ public class MainMenu implements Printable{
                 }
                 if (accountTypeInput == 1) {
                     int userAccountIndex = managerObject.searchAccount(acc, accountNumberInput);
+
                     try {
                         menu.printBalance(acc, userAccountIndex, "checking");
                     } catch (IndexOutOfBoundsException e) {
@@ -198,9 +198,12 @@ public class MainMenu implements Printable{
 
                     }
                 }
-            } else {
+            } else if(loginSelection.equals("6")) {
                 System.out.println("Goodbye");
                 return;
+            }
+            else {
+                System.out.println("Invalid input");
             }
 
         }
@@ -239,55 +242,55 @@ public class MainMenu implements Printable{
         String lastName ="";
         int payerID = -1;
         int payerIndex = -1;
-        String isBankManager;
+
         String loginSelection;
         String password;
         MainMenu menu = new MainMenu();
 
         menu.printWelcomeMessage();
+        boolean isValidOption = false;
 
-        System.out.println("Are you a Bank Manager? Y/N");
-        isBankManager = input.next();
+        while(!isValidOption) {
+            System.out.println("choose how to login by entering 1 or 2:\n" +
+                    "1. ID number e.g 00\n" +
+                    "2. First name and last name\n" +
+                    "3. Exit");
 
-        if(isBankManager.toLowerCase().equals("y")){
-            bankManager(isBankManager, acc);
-            return;
+            loginSelection = input.next();
+            switch (loginSelection) {
+                case "1":
+                    while (true) {
+                        try {
+                            System.out.println("Enter ID number in full e.g 00:");
+                            payerID = input.nextInt();
+                            isValidOption = true;
 
-        }
-        else {
-            System.out.println("Proceed to user login");
-        }
-
-        System.out.println("choose how to login by entering 1 or 2:\n"+
-                "1. ID number e.g 00\n"+
-                "2. First name and last name\n"+
-                "Press any other key to exit completely");
-
-        loginSelection = input.next();
-
-        if (loginSelection.equals("1")){
-            while(true) {
-                try {
-                    System.out.println("Enter ID number in full e.g 00:");
-                    payerID = input.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input, not a number");
+                            input.next();
+                        }
+                        break;
+                    }
                     break;
-                } catch (InputMismatchException e) {
-                    System.out.println("Invalid input, not a number");
-                    input.next();
-                }
+                case "2":
+
+                    System.out.println("Enter first name");
+                    firstName = input.next();
+
+                    System.out.println("Enter last name");
+                    lastName = input.next();
+                    isValidOption = true;
+                    break;
+
+                case "3":
+                    System.out.println("Goodbye");
+                    return;
+
+
+                default:
+                    System.out.println("invalid input!");
             }
-        }
-        else if (loginSelection.equals("2")){
 
-            System.out.println("Enter first name");
-            firstName = input.next();
-
-            System.out.println("Enter last name");
-            lastName = input.next();
-        }
-        else {
-            System.out.println("Goodbye");
-            return;
         }
 
         //System.out.println(payerID+" "+firstName+" "+lastName);
@@ -312,6 +315,7 @@ public class MainMenu implements Printable{
             System.out.println("Wrong password! Exiting!");
             return;
         }
+
 
         while (true) {
             System.out.println("Select what you want to do by typing only the number\n" +
@@ -385,24 +389,40 @@ public class MainMenu implements Printable{
 
         switch (selection) {
             case "1":
-                System.out.printf("Amount in Checking account: $%.2f", acc.getCheckingAcc().getBalance());
-                System.out.println();
+
+                if (!acc.getCheckingAcc().getExists()){
+                    System.out.println("Checking account does not exist");
+                    return;
+                }
+                System.out.println(acc.getCheckingExists());
+
+                System.out.println("amount in Checking account: $" + acc.getCheckingAcc().getBalance());
 
                 transactionLog("inquire balance", acc.getFirstName() + " " + acc.getLastName(), "", 0, "checking", "");
 
                 break;
 
             case "2":
-                System.out.printf("Amount in Savings account: $%.2f", acc.getSavingsAcc().getBalance());
-                System.out.println();
+
+                if (!acc.getSavingsAcc().getExists()){
+                    System.out.println("Savings account does not exist");
+                    return;
+                }
+
+                System.out.println("amount in Savings account: $" + acc.getSavingsAcc().getBalance());
 
                 transactionLog("inquire balance", acc.getFirstName() + " " + acc.getLastName(), "", 0, "savings", "");
 
                 break;
 
             case "3":
-                System.out.printf("Amount in Credit account: $%.2f", acc.getCreditAcc().getBalance());
-                System.out.println();
+
+                if (!acc.getCreditAcc().getExists()){
+                    System.out.println("Credit account does not exist");
+                    return;
+                }
+
+                System.out.println("amount in Credit account: $" + acc.getCreditAcc().getBalance());
 
                 transactionLog("inquire balance", acc.getFirstName() + " " + acc.getLastName(), "", 0, "credit", "");
 
@@ -444,7 +464,7 @@ public class MainMenu implements Printable{
                     "1. Checking\n" +
                     "2. Saving\n" +
                     "3. Credit\n" +
-                    "4. exit without doing anything");
+                    "4. Exit");
             firstAccount = input.next();
 
             if (firstAccount.equals("4")) {
@@ -455,7 +475,7 @@ public class MainMenu implements Printable{
                     "1. Checking\n" +
                     "2. Saving\n" +
                     "3. Credit\n" +
-                    "4. exit without doing anything");
+                    "4. Exit");
             secondAccount = input.next();
 
             if (secondAccount.equals("4")) {
@@ -477,17 +497,26 @@ public class MainMenu implements Printable{
 
             case "1": //Transfer from Checking
 
+                if (!acc.getCheckingAcc().getExists()){
+                    System.out.println("Checking account does not exist");
+                    return;
+                }
+
                 if (secondAccount.equals("1")) { //Transfer to Checking
 
                     System.out.println("Cannot transfer from Checking to Checking");
 
                 } else if (secondAccount.equals("2")) {//Transfer to Savings
 
+                    if (!acc.getSavingsAcc().getExists()){
+                        System.out.println("Savings account does not exist");
+                        return;
+                    }
+
                     if (amount < acc.getCheckingAcc().getBalance()) {
                         acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance() - amount);
                         acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() + amount);
-                        System.out.printf("$%.2f was transferred from Checking to Savings", amount);
-                        System.out.println();
+                        System.out.println("$" + amount + " was transferred from Checking to Savings");
 
                         transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "checking", "savings");
 
@@ -496,11 +525,15 @@ public class MainMenu implements Printable{
                     }
                 } else if (secondAccount.equals("3")) {//Transfer to Credit
 
+                    if (!acc.getCreditAcc().getExists()){
+                        System.out.println("Credit account does not exist");
+                        return;
+                    }
+
                     if (amount < acc.getCheckingAcc().getBalance() && amount < Math.abs(acc.getCreditAcc().getBalance())) {
                         acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance() - amount);
                         acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() + amount);
-                        System.out.printf("$%.2f was transferred from Checking to Credit", amount);
-                        System.out.println();
+                        System.out.println("$" + amount + " was transferred from Checking to Credit");
 
                         transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "checking", "credit");
 
@@ -515,13 +548,22 @@ public class MainMenu implements Printable{
 
             case "2"://Transfer from Savings
 
+                if (!acc.getSavingsAcc().getExists()){
+                    System.out.println("Savings account does not exist");
+                    return;
+                }
+
                 if (secondAccount.equals("1")) {//Transfer to Checking
+
+                    if (!acc.getCheckingAcc().getExists()){
+                        System.out.println("Checking account does not exist");
+                        return;
+                    }
 
                     if (amount < acc.getSavingsAcc().getBalance()) {
                         acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() - amount);
                         acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance() + amount);
-                        System.out.printf("$%.2f was transferred from Savings to Checking", amount);
-                        System.out.println();
+                        System.out.println("$" + amount + " was transferred from Savings to Checking");
 
                         transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "savings", "checking");
 
@@ -534,11 +576,15 @@ public class MainMenu implements Printable{
 
                 } else if (secondAccount.equals("3")) {//Transfer to Credit
 
+                    if (!acc.getCreditAcc().getExists()){
+                        System.out.println("Credit account does not exist");
+                        return;
+                    }
+
                     if (amount < acc.getSavingsAcc().getBalance() && amount < Math.abs(acc.getCreditAcc().getBalance())) {
                         acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() - amount);
                         acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() + amount);
-                        System.out.printf("$%.2f was transferred from Savings to Credit", amount);
-                        System.out.println();
+                        System.out.println("$" + amount + " was transferred from Savings to Credit");
 
                         transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "savings", "credit");
 
@@ -552,23 +598,32 @@ public class MainMenu implements Printable{
                 break;
 
             case "3"://Transfer from Credit
+
+                if (!acc.getCreditAcc().getExists()){
+                    System.out.println("Credit account does not exist");
+                    return;
+                }
+
                 if (secondAccount.equals("1")) {//Transfer to Checking
 
                     acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() - amount);
                     acc.getCreditAcc().setBalance(acc.getCheckingAcc().getBalance() + amount);
 
-                    System.out.printf("$%.2f was transferred from Credit to Checking", amount);
-                    System.out.println();
+                    System.out.println("$" + amount + " was transferred from Credit to Checking");
 
                     transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "credit", "checking");
 
                 } else if (secondAccount.equals("2")) {//Transfer to Savings
 
+                    if (!acc.getSavingsAcc().getExists()){
+                        System.out.println("Savings account does not exist");
+                        return;
+                    }
+
                     acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() - amount);
                     acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() + amount);
 
-                    System.out.printf("$%.2f was transferred from Credit to Savings", amount);
-                    System.out.println();
+                    System.out.println("$" + amount + " was transferred from Credit to Savings");
 
                     transactionLog("transfer", acc.getFirstName() + " " + acc.getLastName(), "", amount, "credit", "savings");
 
@@ -628,9 +683,14 @@ public class MainMenu implements Printable{
 
         switch (selection) {
             case "1":
+
+                if (!acc.getCheckingAcc().getExists()){
+                    System.out.println("Checking account does not exist");
+                    return;
+                }
                 acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance() + amount);
-                System.out.printf("Successful deposit of $%.2f\nNew balance is: $%.2f", amount, acc.getCheckingAcc().getBalance());
-                System.out.println();
+                System.out.println("Succesful deposit of $" + amount +
+                        "\nnew balance is: " + acc.getCheckingAcc().getBalance());
 
                 transactionLog("deposit", acc.getFirstName() + " " + acc.getLastName(), "", amount, "", "checking");
 
@@ -638,9 +698,13 @@ public class MainMenu implements Printable{
 
             case "2":
 
+                if (!acc.getSavingsAcc().getExists()){
+                    System.out.println("Savings account does not exist");
+                    return;
+                }
                 acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance() + amount);
-                System.out.printf("Successful deposit of $%.2f\nNew balance is: $%.2f", amount, acc.getSavingsAcc().getBalance());
-                System.out.println();
+                System.out.println("amount in Savings account: $" + amount +
+                        "\nnew balance is: " + acc.getSavingsAcc().getBalance());
 
                 transactionLog("deposit", acc.getFirstName() + " " + acc.getLastName(), "", amount, "", "savings");
 
@@ -648,12 +712,16 @@ public class MainMenu implements Printable{
 
             case "3":
 
+                if (!acc.getCreditAcc().getExists()){
+                    System.out.println("Credit account does not exist");
+                    return;
+                }
                 if (amount > Math.abs(acc.getCreditAcc().getBalance())) {
                     System.out.println("Cannot deposit more than what is owed, end balance at most must be 0");
                 } else {
                     acc.getCreditAcc().setBalance(acc.getCreditAcc().getBalance() + amount);
-                    System.out.printf("Successful deposit of $%.2f\nNew balance is: $%.2f", amount, acc.getCreditAcc().getBalance());
-                    System.out.println();
+                    System.out.println("amount in Credit account: $" + amount +
+                            "\nnew balance is: " + acc.getCreditAcc().getBalance());
 
                     transactionLog("deposit", acc.getFirstName() + " " + acc.getLastName(), "", amount, "", "credit");
 
@@ -712,14 +780,16 @@ public class MainMenu implements Printable{
         switch (selection) {
             case "1":
 
-
+                if (!acc.getCheckingAcc().getExists()){
+                    System.out.println("Checking account does not exist");
+                    return;
+                }
                 if (acc.getCheckingAcc().getBalance() < amount){
                     System.out.println("not enough funds");
                 }
                 else {
                     acc.getCheckingAcc().setBalance(acc.getCheckingAcc().getBalance()-amount);
-                    System.out.printf("Withdrew $%.2f from checking account.\nNew balance: $%.2f", amount, acc.getCheckingAcc().getBalance());
-                    System.out.println();
+                    System.out.println("Withdrew $"+amount+" from checking account, new balance: $" + acc.getCheckingAcc().getBalance());
 
                     transactionLog("withdraw", acc.getFirstName() + " " + acc.getLastName(), "", amount, "checking", "");
 
@@ -729,13 +799,16 @@ public class MainMenu implements Printable{
 
             case "2":
 
+                if (!acc.getSavingsAcc().getExists()){
+                    System.out.println("Savings account does not exist");
+                    return;
+                }
                 if (acc.getSavingsAcc().getBalance() < amount){
                     System.out.println("not enough funds");
                 }
                 else {
                     acc.getSavingsAcc().setBalance(acc.getSavingsAcc().getBalance()-amount);
-                    System.out.printf("Withdrew $%.2f from Savings account.\nNew balance: $%.2f", amount, acc.getSavingsAcc().getBalance());
-                    System.out.println();
+                    System.out.println("Withdrew $"+amount+" from Savings account, new balance: $" + acc.getSavingsAcc().getBalance());
 
                     transactionLog("withdraw", acc.getFirstName() + " " + acc.getLastName(), "", amount, "savings", "");
 
@@ -786,6 +859,15 @@ public class MainMenu implements Printable{
                     "2. Savings");
             payerSelection = sc.next();
 
+            if (payerSelection.equals("1") && !currentAcc.getCheckingAcc().getExists()){
+                System.out.println("Checking account does not exist");
+                return;
+            }
+            if (payerSelection.equals("2") && !currentAcc.getSavingsAcc().getExists()){
+                System.out.println("Savings account does not exist");
+                return;
+            }
+
             System.out.println("choose how find who you wish to pay by entering 1 or 2:\n" +
                     "1. ID number e.g 00\n" +
                     "2. First name and last name\n" +
@@ -819,7 +901,17 @@ public class MainMenu implements Printable{
                     "2. Savings");
             toAccount = sc.next();
 
-            System.out.print("Enter amount to pay: ");
+            if ( toAccount.equals("1") && !currentAcc.getCheckingAcc().getExists()){
+                System.out.println("Checking account does not exist");
+                return;
+            }
+            if (toAccount.equals("2")  && !currentAcc.getSavingsAcc().getExists()){
+                System.out.println("Savings account does not exist");
+                return;
+            }
+
+
+            System.out.println("enter amount to pay");
 
             while (true) {
                 try {
@@ -847,9 +939,7 @@ public class MainMenu implements Printable{
             currentAcc.getCheckingAcc().setBalance(currentAcc.getCheckingAcc().getBalance()-amount);//set balance for payer
 
 
-            String result = String.format("%.2f", amount);
-
-            System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+result+
+            System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+amount+
                     " to "+acc.get(payeeIndex).getFirstName()+" "+acc.get(payeeIndex).getLastName());
 
             transactionLog("paySomeone", currentAcc.getFirstName() + " " + currentAcc.getLastName(), acc.get(payeeIndex).getFirstName() + " " + acc.get(payeeIndex).getLastName(), amount, "checking", "checking");
@@ -864,9 +954,7 @@ public class MainMenu implements Printable{
             assert currentAcc != null;
             currentAcc.getSavingsAcc().setBalance(currentAcc.getSavingsAcc().getBalance()-amount);//set balance for payer
 
-            String result = String.format("%.2f", amount);
-
-            System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+result+
+            System.out.println(currentAcc.getFirstName()+" "+currentAcc.getLastName()+" pays $"+amount+
                     " to "+acc.get(payeeIndex).getFirstName()+" "+acc.get(payeeIndex).getLastName());
 
             transactionLog("paySomeone", currentAcc.getFirstName() + " " + currentAcc.getLastName(), acc.get(payeeIndex).getFirstName() + " " + acc.get(payeeIndex).getLastName(), amount, "savings", "checking");
@@ -906,7 +994,6 @@ public class MainMenu implements Printable{
      */
     public static void transactionLog(String transactionType, String userName, String otherUserName, double amount, String fromAccount, String toAccount) {
 
-        String result = String.format("%.2f", amount);
         // using try and catch to prevent IOException error
         // file will be created if it does not exist, otherwise it will append information
         // adding if statements that will write different info depending on transaction types
@@ -916,16 +1003,16 @@ public class MainMenu implements Printable{
                 transLogWriter.write(userName + " inquired his/her " + fromAccount + " balance.\n");
             }
             if (transactionType.equals("paySomeone")) {
-                transLogWriter.write(userName + " payed $" + result + " to " + otherUserName + ".\n");
+                transLogWriter.write(userName + " payed $" + amount + " to " + otherUserName + ".\n");
             }
             if (transactionType.equals("deposit")) {
-                transLogWriter.write(userName + " deposited $" + result + " into their " + fromAccount + " account.\n");
+                transLogWriter.write(userName + " deposited $" + amount + " into their " + fromAccount + " account.\n");
             }
             if (transactionType.equals("transfer")) {
-                transLogWriter.write(userName + " transferred $" + result + " from their " + fromAccount + " account to their " + toAccount + ".\n");
+                transLogWriter.write(userName + " transferred $" + amount + " from their " + fromAccount + " account to their " + toAccount + ".\n");
             }
             if (transactionType.equals("withdraw")) {
-                transLogWriter.write(userName + " withdrew $" + result + " from their " + fromAccount + " account.\n");
+                transLogWriter.write(userName + " withdrew $" + amount + " from their " + fromAccount + " account.\n");
             }
             transLogWriter.close();
         }
@@ -996,16 +1083,13 @@ public class MainMenu implements Printable{
     public void printBalance(ArrayList<Customer> accountList, int i, String accountType) {
 
         if (accountType.equals("checking")) {
-            System.out.printf("Checking $%.2f", accountList.get(i).getCheckingAcc().getBalance());
-            System.out.println();
+            System.out.println("Checking $: " + accountList.get(i).getCheckingAcc().getBalance());
         }
         if (accountType.equals("savings")) {
-            System.out.printf("Savings $%.2f", accountList.get(i).getSavingsAcc().getBalance());
-            System.out.println();
+            System.out.println("Savings $: " + accountList.get(i).getSavingsAcc().getBalance());
         }
         if (accountType.equals("credit")) {
-            System.out.printf("Credit $%.2f", accountList.get(i).getCreditAcc().getBalance());
-            System.out.println();
+            System.out.println("Credit $: " + accountList.get(i).getCreditAcc().getBalance());
         }
     }
 
