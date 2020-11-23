@@ -336,7 +336,7 @@ public class Customer extends Person implements Printable{
 
         Scanner sc = new Scanner(System.in);
         try {
-            sc = new Scanner(new File("CS 3331 - Bank Users 4.csv"));
+            sc = new Scanner(new File("CS 3331 - Bank Users 5.csv"));
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }

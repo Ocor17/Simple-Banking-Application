@@ -19,7 +19,7 @@ import java.util.ArrayList;
     private int accountNumber;
     private double startingBalance = Double.NaN;
     private double balance;
-    private boolean exists = true;
+    private boolean exists = false;
 
     /**
      * This is the default constructor

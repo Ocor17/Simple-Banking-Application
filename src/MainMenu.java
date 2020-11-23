@@ -348,7 +348,7 @@ public class MainMenu implements Printable{
                     break;
 
                 case "5":
-                    paySomeoneSubMenu(acc.get(payerIndex), acc, "", "", 0, 0);//PAY SOMEONE
+                    paySomeoneSubMenu(acc.get(payerIndex), acc, "", "", -1, 0);//PAY SOMEONE
                     break;
 
                 case "6":
@@ -894,6 +894,11 @@ public class MainMenu implements Printable{
                 if (acc.get(i).getIdentificationNumber() == payeeID || (acc.get(i).getFirstName().equals(payeeFirstName) && acc.get(i).getLastName().equals(payeeLastName))) {
                     payeeIndex = i;
                 }
+            }
+
+            if (payeeIndex == -1) {
+                System.out.println("Account does not exist.");
+                return;
             }
 
             System.out.println("Please select the other person's account:\n" +

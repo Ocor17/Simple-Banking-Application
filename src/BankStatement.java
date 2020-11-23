@@ -42,7 +42,7 @@ public class BankStatement {
         SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         String today = df.format(new Date());
 
-        try (PrintWriter writer = new PrintWriter("BankStatement.txt")) {
+        try (PrintWriter writer = new PrintWriter(customerArrayList.get(index).getFirstName() + "-BankStatement.txt")) {
             int count = 0;
             writer.println("Miner Bank" + "                                                    Checking Account Number: " + customerArrayList.get(index).getCheckingAcc().getAccountNumber());
             writer.println("                                                              Savings Account Number:  " + customerArrayList.get(index).getSavingsAcc().getAccountNumber());
